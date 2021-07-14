@@ -3,5 +3,5 @@ from django.shortcuts import render
 def index(request):
     return render(request, "index.html")
 
-def cse(request):
+def cse_home(request):
     return render(request, "cse.html")
