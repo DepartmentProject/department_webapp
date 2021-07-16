@@ -24,12 +24,12 @@
   <![endif]-->
 </head>
 <body>
-<!-- HIDDEN PANEL 
+    <!-- HIDDEN PANEL 
 ================================================== -->
 <div id="panel">
 	<div class="row">
 		<div class="twelve columns">
-			<img src="http://www.wowthemes.net/demo/studiofrancesca/images/info.png" class="pics" alt="info">
+			<img src="{% static 'http://www.wowthemes.net/demo/studiofrancesca/images/info.png' %}" class="pics" alt="info">
 			<div class="infotext">
 				 Thank you for visiting my theme! Replace this with your message to visitors.
 			</div>
@@ -44,8 +44,8 @@
 <div class="row">
 	<div class="headerlogo four columns">
 		<div class="logo">
-			<a href="">
-			<h4>itech Academia</h4>
+			<a href="index">
+			<h4>iTech Academia</h4>
 			</a>
 		</div>
 	</div>
@@ -53,33 +53,37 @@
 		<nav id="nav-wrap">
 		<ul id="main-menu" class="nav-bar sf-menu">
 			<li class="current">
-			<a href="">Home</a>
+			<a href="index">Home</a>
 			</li>
 			<li>
-			<a href="#">Portofolio</a>
+			<a href="#">Achievements</a>
 			<ul>
-				<li><a href="portofolio2.html">2 Columns</a></li>
-				<li><a href="portofolio3.html">3 Columns</a></li>
-				<li><a href="portofolio4.html">4 Columns</a></li>
-				<li><a href="portofoliodetail.html">Project Details</a></li>
+				<li><a href="portofolio2.html">Computer Science</a></li>
+				<li><a href="portofolio3.html">Electronics and Communication</a></li>
+				<li><a href="portofolio4.html">Electrical and Electronics</a></li>
+
+				<!--<li><a href="portofoliodetail.html">Project Details</a></li>-->
 			</ul>
 			</li>
 			<li>
-			<a href="#">Blog</a>
+			<a href="#">Login</a>
+			<!--
 			<ul>
 				<li><a href="blogpage1.html">Blog page style 1</a></li>
 				<li><a href="blogpage2.html">Blog page style 2</a></li>
 				<li><a href="blogpage3.html">Blog page style 3</a></li>
 				<li><a href="blogsinglepost.html">Single post</a></li>
-			</ul>
+			</ul>-->
 			</li>
 			<li>
-			<a href="#">Pages</a>
+			<a href="#">Helpdesk</a>
+			<!--
 			<ul>
 				<li><a href="about.html">About us</a></li>
 				<li><a href="services.html">Services</a></li>
-			</ul>
+			</ul>-->
 			</li>
+			<!--
 			<li>
 			<a href="#">Features</a>
 			<ul>
@@ -87,15 +91,13 @@
 				<li><a href="elements.html">Elements</a></li>
 				<li><a href="typography.html">Typography</a></li>
 			</ul>
-			</li>
+			</li>-->
 			<li>
 			<a href="contact.html">Contact</a>
 			</li>
 		</ul>
 		</nav>
 	</div>
-</div>
-<div class="clear">
 </div>
 <!-- SLIDER 
 ================================================== -->
@@ -234,6 +236,16 @@
 			</div>
 			</a>
 			</li>
+
+			<li>
+				<a href="packages">
+				<span class="ca-icon"><i class="fa fa-cloud-download"></i></span>
+				<div class="ca-content">
+					<h2 class="ca-main">Downloads</h2>
+					<h3 class="ca-sub">Installation Packages</h3>
+				</div>
+				</a>
+				</li>
 			<!--
 			<li>
 			<a href="#">

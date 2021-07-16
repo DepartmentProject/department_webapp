@@ -20,5 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index, name = "Index"),
     path('index',views.index, name = "index"),
-    path('cse_home', views.cse_home, name = "cse_home")
+    path('notes', views.notes, name = "notes"),
+    path('packages', views.packages, name = "packages"),
+    path('cse_home', views.cse_home, name = "cse_home"),
 ]

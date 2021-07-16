@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+
+
+
+    <!-- HIDDEN PANEL 
+================================================== -->
+<div id="panel">
+	<div class="row">
+		<div class="twelve columns">
+			<img src="{% static 'http://www.wowthemes.net/demo/studiofrancesca/images/info.png' %}" class="pics" alt="info">
+			<div class="infotext">
+				 Thank you for visiting my theme! Replace this with your message to visitors.
+			</div>
+		</div>
+	</div>
+</div>
+<p class="slide">
+	<a href="#" class="btn-slide"></a>
+</p>
+<!-- HEADER
+================================================== -->
+<div class="row">
+	<div class="headerlogo four columns">
+		<div class="logo">
+			<a href="index">
+			<h4>iTech Academia</h4>
+			</a>
+		</div>
+	</div>
+	<div class="headermenu eight columns noleftmarg">
+		<nav id="nav-wrap">
+		<ul id="main-menu" class="nav-bar sf-menu">
+			<li class="current">
+			<a href="index">Home</a>
+			</li>
+			<li>
+			<a href="#">Achievements</a>
+			<ul>
+				<li><a href="portofolio2.html">Computer Science</a></li>
+				<li><a href="portofolio3.html">Electronics and Communication</a></li>
+				<li><a href="portofolio4.html">Electrical and Electronics</a></li>
+				<!--<li><a href="portofoliodetail.html">Project Details</a></li>-->
+			</ul>
+			</li>
+			<li>
+			<a href="#">Login</a>
+			<!--
+			<ul>
+				<li><a href="blogpage1.html">Blog page style 1</a></li>
+				<li><a href="blogpage2.html">Blog page style 2</a></li>
+				<li><a href="blogpage3.html">Blog page style 3</a></li>
+				<li><a href="blogsinglepost.html">Single post</a></li>
+			</ul>-->
+			</li>
+			<li>
+			<a href="#">Helpdesk</a>
+			<!--
+			<ul>
+				<li><a href="about.html">About us</a></li>
+				<li><a href="services.html">Services</a></li>
+			</ul>-->
+			</li>
+			<!--
+			<li>
+			<a href="#">Features</a>
+			<ul>
+				<li><a href="columns.html">Columns</a></li>
+				<li><a href="elements.html">Elements</a></li>
+				<li><a href="typography.html">Typography</a></li>
+			</ul>
+			</li>-->
+			<li>
+			<a href="contact.html">Contact</a>
+			</li>
+		</ul>
+		</nav>
+	</div>
+</div>
+{% endblock %}
+</body>
+</html>
