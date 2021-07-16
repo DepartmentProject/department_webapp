@@ -27,3 +27,14 @@ def cse_home(request):
 def cse_syllabus(request):
     return render(request, "cse_syllabus.html")
 
+
+def packages(request):
+    return render(request, "packages.html")
+
+def notes(request):
+    #useropt=db.child('Semester3').shallow().get()
+    x= db.child('Semester3').get().val()
+    #print(x.keys())
+
+
+    return render(request, "notes.html",{'key':x})

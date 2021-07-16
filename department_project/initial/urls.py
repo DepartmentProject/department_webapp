@@ -23,4 +23,7 @@ urlpatterns = [
     path('cse_home', views.cse_home, name = "cse_home"),
     path('cse_syllabus', views.cse_syllabus, name = "cse_syllabus"),
     
+    path('notes', views.notes, name = "notes"),
+    path('packages', views.packages, name = "packages"),
+    path('cse_home', views.cse_home, name = "cse_home"),
 ]
