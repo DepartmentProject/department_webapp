@@ -21,5 +21,6 @@ urlpatterns = [
     path('',views.index, name = "Index"),
     path('index',views.index, name = "index"),
     path('cse_home', views.cse_home, name = "cse_home"),
-    path('cse_syllabus', views.cse_syllabus, name = "cse_syllabus")
+    path('cse_syllabus', views.cse_syllabus, name = "cse_syllabus"),
+    
 ]
