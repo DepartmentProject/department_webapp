@@ -31,6 +31,18 @@ def cse_syllabus(request):
 def packages(request):
     return render(request, "packages.html")
 
+
+def achievements(request):
+    ach =  db.child('Achievements').get().val()
+    #print('!!!!!!!!!!!!!',ach['ach1'].values())
+    #print('!!!!!!!!!!!!!',ach.keys())
+    achdic={}
+    for i in ach.keys():
+        achdic[i] = list(ach[i].values())
+        #print('!!!!!!!!!!!!!',ach[i].values())
+    print(achdic)
+    return render(request, "achievements.html",{'achdic': achdic})
+
 def notes(request):
     #useropt=db.child('Semester3').shallow().get()
     x= db.child('Semester3').get().val()
