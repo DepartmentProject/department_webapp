@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -10,13 +12,15 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>Studio Francesca - Premium Theme by WowThemes.net</title>
-<!-- CSS Files-->
-<link rel="stylesheet" href="stylesheets/style.css">
+<title>CSE</title>
 
-<link rel="stylesheet" href="stylesheets/skins/blue.css">
+<!-- CSS Files-->
+<link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
+
+<link rel="stylesheet" href="{% static 'stylesheets/skins/blue.css' %}">
 <!-- skin color -->
-<link rel="stylesheet" href="stylesheets/responsive.css">
+<link rel="stylesheet" href="{% static 'stylesheets/responsive.css' %}">
+
 <!-- IE Fix for HTML5 Tags -->
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -43,8 +47,8 @@
 <div class="row">
 	<div class="headerlogo four columns">
 		<div class="logo">
-			<a href="index.html">
-			<h4>Studio Francesca</h4>
+			<a href="index">
+			<h4>iTech Academia</h4>
 			</a>
 		</div>
 	</div>
@@ -52,46 +56,26 @@
 		<nav id="nav-wrap">
 		<ul id="main-menu" class="nav-bar sf-menu">
 			<li class="current">
-			<a href="index.html">Home</a>
+			<a href="index">Home</a>
+			</li>
+			<li>
+			<a href="achievements">Achievements</a>
+			
+			</li>
+			<li>
+			<a href="#">Login</a>
 			<ul>
-				<li><a href="index2.html">Without slider</a></li>
+				<li><a href="#">Faculty Login</a></li>
+				<li><a href="#">Student Login</a></li>
 			</ul>
 			</li>
 			<li>
-			<a href="#">Portofolio</a>
-			<ul>
-				<li><a href="portofolio2.html">2 Columns</a></li>
-				<li><a href="portofolio3.html">3 Columns</a></li>
-				<li><a href="portofolio4.html">4 Columns</a></li>
-				<li><a href="portofoliodetail.html">Project Details</a></li>
-			</ul>
+			<a href="#">Help</a>
+			
 			</li>
+			
 			<li>
-			<a href="#">Blog</a>
-			<ul>
-				<li><a href="blogpage1.html">Blog page style 1</a></li>
-				<li><a href="blogpage2.html">Blog page style 2</a></li>
-				<li><a href="blogpage3.html">Blog page style 3</a></li>
-				<li><a href="blogsinglepost.html">Single post</a></li>
-			</ul>
-			</li>
-			<li>
-			<a href="#">Pages</a>
-			<ul>
-				<li><a href="about.html">About us</a></li>
-				<li><a href="services.html">Services</a></li>
-			</ul>
-			</li>
-			<li>
-			<a href="#">Features</a>
-			<ul>
-				<li><a href="columns.html">Columns</a></li>
-				<li><a href="elements.html">Elements</a></li>
-				<li><a href="typography.html">Typography</a></li>
-			</ul>
-			</li>
-			<li>
-			<a href="contact.html">Contact</a>
+			<a href="contact">Contact</a>
 			</li>
 		</ul>
 		</nav>
@@ -101,17 +85,17 @@
 </div>
 <!-- SUBHEADER
 ================================================== -->
-<div id="subheader">
+<div id="subheader" class="blogstyle">
 	<div class="row">
-		<div class="twelve columns">
-			<p class="left">
-				 CONTACT US
-			</p>
-			<p class="right">
-				 Get in touch today!
+		<div class="eight columns">
+			<p class="bread leftalign">
+				 You are here: <a href="index"> Home</a> / <a href="contact">Contact</a>
 			</p>
 		</div>
+		
 	</div>
+</div>
+<div class="hr">
 </div>
 <div class="hr">
 </div>
@@ -120,20 +104,114 @@
 <div class="row">
     <!-- GOOGLE MAP IFRAME -->
 	<div class="twelve columns">
-		<iframe class="gmap" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=disney+paris&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=39.371738,86.572266&amp;ie=UTF8&amp;hq=disney&amp;hnear=Paris,+%C3%8Ele-de-France,+France&amp;t=m&amp;fll=48.881877,2.535095&amp;fspn=0.512051,1.352692&amp;st=103241701817924407489&amp;rq=1&amp;ev=zo&amp;split=1&amp;ll=49.027964,2.772675&amp;spn=0.315159,0.585022&amp;z=10&amp;iwloc=D&amp;output=embed">
-		</iframe>
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4460.230108455899!2d77.09042286373742!3d11.065790698798136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba8f8a655555555%3A0xa3da0cb94e76285c!2sPSG%20Institute%20of%20Technology%20and%20Applied%20Research%20(PSG%20iTech)!5e0!3m2!1sen!2sin!4v1626708287255!5m2!1sen!2sin" width="950" height="380" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 	</div>
 </div>
+
+<br>
+<div class="row">
+    <!-- MAIN CONTENT-->
+	<div class="twelve columns">
+
+		
+
+
+		<div class="sectiontitle">
+			<h4>About us</h4>
+		</div>
+		<p>
+			PSG iTech, the latest initiative of PSG and Sons’ Charities, aims to realize its objective of enhancing youth empowerment through technical education. This institute caters to various engineering disciplines, focusing on learning, industry engagement of students, innovative and inclusive pedagogy, and ethics.
+
+		</p>
+		<p>
+			PSG Institute of Technology and Applied Research aims at effective transfer of knowledge, pursuit of truth and moulding the students to become ideal citizens of the country. Within a short span of time, the Institution has emerged to be one of the most preferred institutions for the engineering aspirants in Tamilnadu.
+		</p>
+
+		<p>
+			PSG Institute of Technology and Applied Research, started in the year 2014, is an AICTE approved institution and affiliated to Anna University, Chennai. It is currently offering Civil Engineering, Computer Science and Engineering, Electrical and Electronics Engineering, Electronics and Communication Engineering and Mechanical Engineering programs in undergraduate level. This institution is equipped with various Centres of Excellence such as Innovation Centre, NI Graphical System Design Centre, Keysight RF circuit & System Design Lab, Festo Lab, NEXMOO Mobile & IoT Centre of Excellence, CISCO Network Academy and eYantra. PSGiTech aims to achieve excellence in education and research and nurture engineers with ethics, who will face global challenges to serve industry and society.
+		</p>
+
+		<br>
+
+		<div class="sectiontitle">
+			<h4>Contact us</h4>
+		</div>
+		<p>
+		<a href = "http://www.psgitech.ac.in/">	PSG Institute of Technology and Applied Research</a><br>
+Avinashi Road, Neelambur<br>
+Coimbatore - 641 062<br>
+Tamilnadu.<br>
+Phone No : 0422 3933 666<br>
+Mobile No : +91 87540 42807, +91 87540 42808<br>
+Fax No : 0422 3933456<br>
+Administration office : <a href="mailto:principal@psgitech.ac.in">principal@psgitech.ac.in</a>
+
+		</p>
+		
+
+		<br>
+
+<div class="sectiontitle">
+	<h4>Developers</h4>
+</div>
+	<div class="row">
+		<div class="six columns">
+			<p>
+				<div class="title">
+					<b>Colin Rolance D</b>
+				</div>
+				 
+				Student <br>
+				Department of Electronics and Communication Engineering<br>
+				Batch 2019-2023
+			</p>
+		</div>
+		<div class="six columns">
+			<p>
+				<div class="title">
+					<b>Susmeta A</b>
+				</div>
+				Student <br>
+				Department of Computer Science and Engineering<br>
+				Batch 2019-2023
+			</p>
+		</div>
+	</div>
+	<br>
+</div>
+</div>
+
+
+
+
 <div class="row">
 	<!-- CONTACT FORM -->
 	<div class="twelve columns">
-		<div class="wrapcontact">
-			<h5>SEND US A MESSAGE</h5>
+		<div class="sectiontitle">
+			<h4>Send Us a Message</h4>
+		</div>
+		
+			<!--
 			<div class="done">
 				<div class="alert-box success">
 				 Message has been sent! <a href="" class="close">x</a>
 				</div>
-			</div>			
+			</div>	-->
+			
+			
+			<div class="row">
+				<div class="six columns">
+					<p>
+						<div class="title">
+							<b><a href="mailto:susmetaa01@gmail.com,colinrolance2001@gmail.com?subject=Feedback on Itech Academia">Drop your feedback here</a>  </b>
+						</div>
+					
+					</p>
+				</div>
+			</div>
+
+
+			<!--
 				<form method="post" action="contact.php" id="contactform">
 				<div class="form">
 				    <div class="six columns noleftmargin">
@@ -148,7 +226,8 @@
 					<textarea name="comment" class="smoothborder ctextarea" rows="14" placeholder="Message, feedback, comments *"></textarea>
 					<input type="submit" id="submit" class="readmore" value="Submit">
 				</div>
-				</form>			
+				</form>	
+			-->			
 		</div>
 	</div>
 												
@@ -156,7 +235,7 @@
 <div class="hr">
 </div>
 
-<!-- FOOOTER 
+    <!-- FOOOTER 
 ================================================== -->
 <div id="footer">
 	<footer class="row">
@@ -165,27 +244,17 @@
 	</p>
 	<div class="four columns">
 		<h1>ABOUT US</h1>
-		 Our goal is to keep clients satisfied!
+		Our Main Goal is to benefit the Circuit Branch Students of PSG iTech.
 	</div>
 	<div class="four columns">
 		<h1>GET SOCIAL</h1>
-		<a class="social facebook" href="#"></a>
-		<a class="social twitter" href="#"></a>
-		<a class="social deviantart" href="#"></a>
-		<a class="social flickr" href="#"></a>
-		<a class="social dribbble" href="#"></a>
+		<a href="https://www.facebook.com/psgitar"><i class="fa fa-facebook-square fa-2x"></i></a>&emsp;&ensp;
+		<a href="https://twitter.com/psgitarofficial"><i class="fa fa-twitter-square fa-2x"></i></a>&emsp;&ensp;
+		<a href="https://www.youtube.com/channel/UCKKixBjQDWjYAFS0MKgYlSg"><i class="fa fa-youtube-play fa-2x"></i></a>&emsp;&ensp;
+		<a href="https://in.linkedin.com/in/psgitar"><i class="fa fa-linkedin-square fa-2x"></i></a>&emsp;&ensp;
+		
 	</div>
-	<div class="four columns">
-		<h1 class="newsmargin">NEWSLETTER</h1>
-		<div class="row collapse newsletter floatright">
-			<div class="ten mobile-three columns">
-				<input type="text" class="nomargin" placeholder="Enter your e-mail address...">
-			</div>
-			<div class="two mobile-one columns">
-				<a href="#" class="postfix button expand">GO</a>
-			</div>
-		</div>
-	</div>
+	
 	</footer>
 </div>
 <div class="copyright">
@@ -193,26 +262,23 @@
 		<div class="six columns">
 			 &copy;<span class="small"> Copyright 2015 Your Agency Name</span>
 		</div>
-		<div class="six columns">
-			<span class="small floatright"> Template by <a href="www.wowthemes.net">WowThemes.net</a></span>
-		</div>
+		
 	</div>
 </div>
 <!-- JAVASCRIPTS 
 ================================================== -->
 <!-- Javascript files placed here for faster loading -->
-<script src="javascripts/foundation.min.js"></script>
-<script src="javascripts/formvalidation.js"></script>
-<script src="javascripts/jquery.cycle.js"></script>
-<script src="javascripts/app.js"></script>
-<script src="javascripts/modernizr.foundation.js"></script>
-<script src="javascripts/slidepanel.js"></script>
-<script src="javascripts/scrolltotop.js"></script>
-<script src="javascripts/hoverIntent.js"></script>
-<script src="javascripts/superfish.js"></script>
-<script src="javascripts/responsivemenu.js"></script>
-<script src="javascripts/jquery.tweet.js"></script>
-
-
+<script src="{% static 'javascripts/foundation.min.js' %}"></script>
+<script src="{% static 'javascripts/elasticslideshow.js' %}"></script>
+<script src="{% static 'javascripts/jquery.carouFredSel-6.0.5-packed.js' %}"></script>
+<script src="{% static 'javascripts/jquery.cycle.js' %}"></script>
+<script src="{% static 'javascripts/app.js' %}"></script>
+<script src="{% static 'javascripts/modernizr.foundation.js' %}"></script>
+<script src="{% static 'javascripts/slidepanel.js' %}"></script>
+<script src="{% static 'javascripts/scrolltotop.js' %}"></script>
+<script src="{% static 'javascripts/hoverIntent.js' %}"></script>
+<script src="{% static 'javascripts/superfish.js' %}"></script>
+<script src="{% static 'javascripts/responsivemenu.js' %}"></script>
+<script src="{% static 'javascripts/jquery.easing.1.3.js' %}"></script>
 </body>
 </html>
