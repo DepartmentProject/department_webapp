@@ -26,5 +26,6 @@ urlpatterns = [
     path('packages', views.packages, name = "packages"),
     path('cse_home', views.cse_home, name = "cse_home"),
     path('achievements', views.achievements, name = "achievements"),
-    path('cse_cgpa', views.cse_cgpa, name = "cse_cgpa")
+    path('cse_cgpa', views.cse_cgpa, name = "cse_cgpa"),
+    path('contact', views.contact, name = "contact"),
 ]

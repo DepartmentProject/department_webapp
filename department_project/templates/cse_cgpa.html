@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -11,13 +12,15 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>iTech Academia</title>
+<title>CSE</title>
+
 <!-- CSS Files-->
 <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
 
 <link rel="stylesheet" href="{% static 'stylesheets/skins/blue.css' %}">
 <!-- skin color -->
 <link rel="stylesheet" href="{% static 'stylesheets/responsive.css' %}">
+
 <!-- IE Fix for HTML5 Tags -->
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -44,7 +47,7 @@
 <div class="row">
 	<div class="headerlogo four columns">
 		<div class="logo">
-			<a href="index.html">
+			<a href="index">
 			<h4>iTech Academia</h4>
 			</a>
 		</div>
@@ -53,36 +56,31 @@
 		<nav id="nav-wrap">
 		<ul id="main-menu" class="nav-bar sf-menu">
 			<li class="current">
-			<a href="index.html">Home</a>
-			<ul>
-				<li><a href="index2.html">Without slider</a></li>
-			</ul>
+			<a href="index">Home</a>
 			</li>
 			<li>
-			<a href="#">Portofolio</a>
-			<ul>
-				<li><a href="portofolio2.html">2 Columns</a></li>
-				<li><a href="portofolio3.html">3 Columns</a></li>
-				<li><a href="portofolio4.html">4 Columns</a></li>
-				<li><a href="portofoliodetail.html">Project Details</a></li>
-			</ul>
+			<a href="achievements">Achievements</a>
+			
 			</li>
 			<li>
-			<a href="#">Blog</a>
+			<a href="#">Login</a>
+			<!--
 			<ul>
 				<li><a href="blogpage1.html">Blog page style 1</a></li>
 				<li><a href="blogpage2.html">Blog page style 2</a></li>
 				<li><a href="blogpage3.html">Blog page style 3</a></li>
 				<li><a href="blogsinglepost.html">Single post</a></li>
-			</ul>
+			</ul>-->
 			</li>
 			<li>
-			<a href="#">Pages</a>
+			<a href="#">Helpdesk</a>
+			<!--
 			<ul>
 				<li><a href="about.html">About us</a></li>
 				<li><a href="services.html">Services</a></li>
-			</ul>
+			</ul>-->
 			</li>
+			<!--
 			<li>
 			<a href="#">Features</a>
 			<ul>
@@ -90,9 +88,9 @@
 				<li><a href="elements.html">Elements</a></li>
 				<li><a href="typography.html">Typography</a></li>
 			</ul>
-			</li>
+			</li>-->
 			<li>
-			<a href="contact.html">Contact</a>
+			<a href="contact">Contact</a>
 			</li>
 		</ul>
 		</nav>
@@ -106,7 +104,7 @@
 	<div class="row">
 		<div class="eight columns">
 			<p class="bread leftalign">
-				 You are here: <a href="index"> Home</a> / <a href="cse_home">CSE</a> / <a href="cse_cgpa">CGPA calculator</a>
+				 You are here: <a href="index"> Home</a> / <a href="cse_home">CSE</a> / <a href="cse_cgpa">GPA calculator</a>
 			</p>
 		</div>
 		
@@ -114,6 +112,7 @@
 </div>
 <div class="hr">
 </div>
+<!------------------------------ FORMS------------------------------>
 	<div class="row">
 		
 		<!-- FORMS-->
@@ -123,20 +122,20 @@
 			<div class="panel">
 				<h5>Choose Sem</h5>
 				{%csrf_token%}
-					<select name="sem" id="sem" style="width: 100px;">
+					<select name="sem" class="smoothborder" id="sem" style="width: 100px;">
 						<option value="1">1</option>
 						<option value="2">2</option>
 						<option value="3">3</option>
 						<option value="4">4</option>
-						<option value="4">5</option>
-						<option value="4">6</option>
-						<option value="4">7</option>
-						<option value="4">8</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
 					</select>
-					<input type="submit" value = "Submit">
+					<input type="submit" value = "Submit" class="readmore">
 			</div>
 			</form>
-			<h5>GPA Calci</h5>
+			<h5>GPA Calculator</h5>
 			<form action = 'cse_cgpa' method = "POST">
 				{%csrf_token%}
 				<fieldset>
@@ -147,7 +146,7 @@
 							{% for i in semm %}
 							<label>{{i}}</label>
 							
-							<select name='{{i}}' id={{i}} style="width: 150px;">
+							<select name='{{i}}' id={{i}} class="smoothborder" style="width: 150px;">
 								<option value="10">O</option>
 								<option value="9">A+</option>
 								<option value="8">A</option>
@@ -156,8 +155,8 @@
 							</select>
 							<br><br>
 							{% endfor %}
-							<br><br>
-							<input type="submit" value = "Calculate">
+							
+							<input type="submit" value = "Calculate" class="readmore">
 							
 				</fieldset>
 			</form>
