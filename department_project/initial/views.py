@@ -45,13 +45,10 @@ def cse_cgpa(request):
                 7:{'Principles of Management':3,'Cryptography and Network Security ':3, 'Cloud Computing':3, 'Open Elective II':3, 'Professional Elective II':3, 'Professional Elective III ':3, 'Cloud Computing Laboratory':2, 'Security Laboratory ':2},
                 8:{'Professional Elective IV':3, 'Professional Elective V ':3, 'Project Work':10}
                 }
-    
     if request.method == "POST":
         
         if 'sem' in request.POST:
             sem = int(request.POST["sem"])
-            
-            #print("!!!!!!!!",sem)
             return render(request, "cse_cgpa.html", {'semm':list(sem_dict[sem].keys()), 'sem_no':sem})
         else:
             sem1 = int(request.POST["semno"])
@@ -60,7 +57,6 @@ def cse_cgpa(request):
                 x = int(request.POST[i])   
                 sum_res = sum_res + (x*j)
             ans = sum_res/sum(sem_dict[sem1].values())
-            #print("zuzuzuzuzuzuzuzzuzuzuzuzuzuzu",ans)
             return render(request, "cse_cgpa.html", {'semm':list(sem_dict[sem1].keys()), 'sem_no':sem1, 'ans':ans})
     else:
         return render(request, "cse_cgpa.html", {'semm':list(sem_dict[1].keys()), 'sem_no':1})
@@ -83,9 +79,8 @@ def achievements(request):
     return render(request, "achievements.html",{'achdic': achdic})
 
 def notes(request):
-    #useropt=db.child('Semester3').shallow().get()
     x= db.child('Semester3').get().val()
-    #print(x.keys())
-
-
     return render(request, "notes.html",{'key':x})
+
+def contact(request):
+    return render(request, "contact.html")
