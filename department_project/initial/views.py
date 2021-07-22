@@ -24,6 +24,9 @@ fb = pyrebase.initialize_app(firebaseConfig)
 db = fb.database()
 store = fb.storage()
 
+def tdash(request):
+    return render(request, "tdash.html")
+
 def index(request):
     return render(request, "index.html")
 
