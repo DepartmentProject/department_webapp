@@ -34,5 +34,8 @@ urlpatterns = [
     path('ece_home', views.ece_home, name = "ece_home"),
     path('ece_syllabus', views.ece_syllabus, name = "ece_syllabus"),
     path('ece_cgpa', views.ece_cgpa, name = "ece_cgpa"),
-    path('ece_notes', views.ece_notes, name = "ece_notes")
+    path('ece_notes', views.ece_notes, name = "ece_notes"),
+    path('tlogin', views.tlogin, name = "tlogin"),
+    path('tdashboard', views.tdashboard, name = "tdashboard"),
+    
 ]

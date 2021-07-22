@@ -117,115 +117,24 @@
 		
 		<!-- FORMS-->
 		<div class="seven columns">
-			<h5>Semester?</h5>
-			
-			<form action ="cse_cgpa" method = "POST">
+			<h5>Faculty Login </h5>
+			<form action ="tlogin" method = "POST">
+                {%csrf_token%}
 			<div class="panel">
-				<h5>Choose Sem</h5>
-				{%csrf_token%}
-					<select name="sem" class="smoothborder" id="sem" style="width: 100px;">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-					</select>
-					<input type="submit" value = "Submit" class="readmore">
+				<h5>Username</h5>
+				<input type ="email"  name="tusername" placeholder="Enter your official mail ID"><br>
+                <h5>Password</h5>
+                <input type ="password" name="tpassword" placeholder="Enter your password">
+
+                <br>
+					<input type="submit" value = "Login" class="readmore">
+                    
 			</div>
 			</form>
-			<h5>GPA Calculator</h5>
-			<form action = 'cse_cgpa' method = "POST">
-				{%csrf_token%}
-				<fieldset>
-					<legend>Semester {{sem_no}}</legend>
-					<div class="row">
-						<div class="five columns">
-							<input type="hidden" id='semno' name='semno' value={{sem_no}}>
-							{% for i in semm %}
-							<label>{{i}}</label>
-							
-							<select name='{{i}}' id={{i}} class="smoothborder" style="width: 150px;">
-								<option value="10">O</option>
-								<option value="9">A+</option>
-								<option value="8">A</option>
-								<option value="7">B+</option>
-								<option value="6">B</option>
-							</select>
-							<br><br>
-							{% endfor %}
-							
-							<input type="submit" value = "Calculate" class="readmore">
-							
-				</fieldset>
-			</form>
-			<div class="panel callout radius">
-				<h5>Your Gpa is</h5>
-				{% if ans %}
-				<p>
-					{{ans}}
-				</p>
-				{% endif %}
-			</div>
+			
+			
 		</div>		
-		<div class="five columns">
-		    <!-- PANELS-->
-			<h5>PANELS</h5>
-			<div class="panel">
-				<h5>Formula to calculate CGPA</h5>
-				<p>
-					<img src="https://firebasestorage.googleapis.com/v0/b/department-webapp.appspot.com/o/Cgpa%20Calculator%2Fcgpa%20formula.png?alt=media&token=5c89fa32-d46a-488a-b2d3-e3b88ad86563">
-				</p>
-				<br>
-				<h5>Grade Points</h5>
-				<p>
-					<img src="https://firebasestorage.googleapis.com/v0/b/department-webapp.appspot.com/o/Cgpa%20Calculator%2FWhatsApp%20Image%202021-07-18%20at%2012.40.46%20AM.jpeg?alt=media&token=e533696e-1f91-4721-ac6c-06759f18e87a" style="height:200px; width: 330px;">
-					</p>
-				</p>
-				<br>
-				<h5>Legends Information List</h5>
-				<p>
-					<b>WHRX</b> : Re-Examination will be conducted<br>
-					<b>WH1</b> : Withheld for suspected Malpractice<br>
-					<b>WH2</b> : Withheld for want of approval of admission / re-admission / transfer from DTE & Director, Student Affairs.<br>
-					<b>WH3</b> : Withheld – Court Case<br>
-					<b>WH4</b> : Waiting clearance from Director (CEP)<br>
-					<b>WH5</b> : Waiting clearance from Director (Student Affairs)<br>
-					<b>WH6</b> : Withheld for want of clarification<br>
-					<b>WH7</b> : Withheld for want of clarification from the Director (AC) about the additional subjects to be written due to the change of regulation<br>
-					<b>WH8</b> : Withheld for want of clarification from the Director (AC) about the equivalency of subjects for the students admitted in v and vii semester)<br>
-					<b>WH9</b> : Withheld for want of clarification from Director, Chairman sports board<br>
-					<b>WH10</b> : Withheld for non cooperation by the college in central valuation<br>
-					<b>WH11</b> : Results will be published along with the lower semester results<br>
-					<b>WH12</b> : Hard copy of Attendance sheets not provided by the College<br>
-					<b>WH13</b>: Examination Fees not paid by the College<br>
-					<b>WH14</b>: Teacher Candidates<br>
-					<b>WH99</b>: Result will be published later<br>
-					<b>WHG10</b>: In-Process<br>
-					<b>WHI</b> : Withheld for want of Internal Mark (Mark not provided by the college)<br>
-					<b>WHE</b> : Withheld for want of Practical Mark (Mark not provided by the college)<br>
-					<b>WHB</b> : Withheld for want of Internal Mark and Practical Mark (Mark not provided by the college)<br>
-					<b>WHV</b> : Withheld for want of Viva-Voce Mark<br>
-					<b>SE</b> : Sports Exemption<br>
-					<b>WD</b> : Withdrawal<br>
-					<b>AB</b> : Absent<br>
-					<b>SA</b> : Shortage of Attendance<br>
-					<b>RA</b> : Re-appearance<br>
-					<b>BRK</b> : Break<br>
-					<b>UA</b> : Absent<br>
-					<b>NR</b> : Not Registered<br>
-					<b>DIS</b> : Discontinued<br>
-					<b>PDEB</b> : Permanently debarred<br>
-				</p>
-			</div>
-			
-			<div class="hr">
-			</div>
-			<!-- PAGINATION-->
-			
-		</div>
+		
 	</div>
 <div class="hr">
 </div>
