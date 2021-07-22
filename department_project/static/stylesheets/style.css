@@ -907,6 +907,7 @@ a.tags, .tags a {color:#fff;}
 }
 .ca-menu{
     padding:0;
+	float: right;
 }
 .ca-menu li{
     width: 220px;
