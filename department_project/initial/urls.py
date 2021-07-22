@@ -28,4 +28,8 @@ urlpatterns = [
     path('achievements', views.achievements, name = "achievements"),
     path('cse_cgpa', views.cse_cgpa, name = "cse_cgpa"),
     path('contact', views.contact, name = "contact"),
+    path('ece_home', views.ece_home, name = "ece_home"),
+    path('ece_syllabus', views.ece_syllabus, name = "ece_syllabus"),
+    path('ece_cgpa', views.ece_cgpa, name = "ece_cgpa"),
+    path('ece_notes', views.ece_notes, name = "ece_notes")
 ]
