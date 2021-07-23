@@ -23,6 +23,7 @@ firebaseConfig = {
 fb = pyrebase.initialize_app(firebaseConfig)
 db = fb.database()
 store = fb.storage()
+auth = fb.auth()
 
 def tdash(request):
     return render(request, "tdash.html")
@@ -30,8 +31,52 @@ def tdash(request):
 def index(request):
     return render(request, "index.html")
 
+
+'''
+
+print('Login')
+    email = input('enter the email   ')
+    password = input('enter the password   ')
+    try:
+        userlogin= auth.sign_in_with_email_and_password(email,password)
+        opt2 = int(input('Do you want credentials? (1/0) '))
+        if opt2==1:
+            print(auth.get_account_info(userlogin['idToken']))
+        
+    
+    
+
+'''
+
+
+def tlogin(request):
+    if request.method=='POST':
+        username =request.POST["tusername"]
+        password =request.POST["tpassword"]
+        try:
+            userlogin= auth.sign_in_with_email_and_password(username,password)
+            return render(request,'tdashboard.html',{'user':username})
+        except:
+            print('Invalid Login credentials')
+    return render(request, "login.html")
+
+def tdashboard(request):
+    if request.method=='POST':
+        title =request.POST["title"]
+        desc =request.POST["desc"]
+        date =request.POST["date"]
+        file = request.FILES['files[]']
+        image = store.child('Achievements/'+file.name).get_url(None)
+        ach = {'title':title, 'desc':desc,'date':date,'image':image}
+        db.child('Achievements').push(ach)
+        return render(request,'tdashboard.html')
+
+    return render(request,'tdashboard.html')
+
 def cse_home(request):
     return render(request, "cse.html")
+def temp(request):
+    return render(request, "temp.html")
 
 def eee_home(request):
     return render(request, "eee.html")
@@ -109,7 +154,7 @@ def achievements(request):
     achdic={}
     for i in ach.keys():
         achdic[i] = list(ach[i].values())
-        
+    #print(achdic)
     return render(request, "achievements.html",{'achdic': achdic})
 
 def notes(request):
