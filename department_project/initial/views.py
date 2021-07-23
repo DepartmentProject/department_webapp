@@ -61,14 +61,10 @@ def tdashboard(request):
     if request.method=='POST':
         title =request.POST["title"]
         desc =request.POST["desc"]
-        #image =request.POST["image"]
         date =request.POST["date"]
-        #data={'name':name,'snack':food}
-        #db.child('users2').push(data)
-
-
-        #file = request.FILES['files[]']
-        ach = {'title':title, 'desc':desc,'date':date}
+        file = request.FILES['files[]']
+        image = store.child('Achievements/'+file.name).get_url(None)
+        ach = {'title':title, 'desc':desc,'date':date,'image':image}
         db.child('Achievements').push(ach)
         return render(request,'tdashboard.html')
 
