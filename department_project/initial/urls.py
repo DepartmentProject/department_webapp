@@ -37,5 +37,6 @@ urlpatterns = [
     path('ece_notes', views.ece_notes, name = "ece_notes"),
     path('tlogin', views.tlogin, name = "tlogin"),
     path('tdashboard', views.tdashboard, name = "tdashboard"),
+    path('uploadnotes', views.uploadnotes, name = "uploadnotes"),
     
 ]
