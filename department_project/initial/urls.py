@@ -38,5 +38,5 @@ urlpatterns = [
     path('tlogin', views.tlogin, name = "tlogin"),
     path('tdashboard', views.tdashboard, name = "tdashboard"),
     path('uploadnotes', views.uploadnotes, name = "uploadnotes"),
-    
+    path('dele', views.dele, name = "dele")
 ]
