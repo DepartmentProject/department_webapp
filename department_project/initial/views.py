@@ -62,8 +62,9 @@ def tlogin(request):
 
 def tdashboard(request):
     if request.method=='POST':
-        title =request.POST["title"]
+        
         desc =request.POST["desc"]
+        title =request.POST["title"]
         date =request.POST["date"]
         file = request.FILES['files[]']
         image = store.child('Achievements/'+file.name).get_url(None)
@@ -89,6 +90,18 @@ def eee_syllabus(request):
 
 def contact(request):
     return render(request, "contact.html")
+
+def uploadnotes(request):
+    if request.method=='POST':
+        fname =request.POST["fname"]
+        dept =request.POST["dept"]
+        sem =request.POST["sem"]
+        sub =request.POST["sub"]
+        pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
+        db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
+        return render(request,'uploadnotes.html')
+
+    return render(request, "uploadnotes.html")
 
 def cse_cgpa(request):
     sem_dict = {1:{'Communicative English':4 ,'Engineering Mathematics I':4, 'Engineering Physics':3, 'Engineering Chemistry':3, 'Problem Solving and Python Programming':3, 'Engineering Graphics':4, 'Problem Solving and Python Programming Laboratory':2, 'Physics and Chemistry Laboratory':2},

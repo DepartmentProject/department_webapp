@@ -104,126 +104,88 @@
 	<div class="twelve columns">
 		<h5>TABS</h5>
 		<dl class="tabs">
-			<dd class="active"><a href="#simple1">Upload Achievements</a></dd>
-			<dd><a href="#simple2">Upload Department News</a></dd>
-			<dd><a href="uploadnotes">Upload Notes</a></dd>
+			<dd ><a href="tdashboard">Upload Achievements</a></dd>
+			<dd><a href="tdashboard">Upload Department News</a></dd>
+			<dd class="active"><a href="#">Upload Notes</a></dd>
 		</dl>
-		<ul class="tabs-content">
-			<li class="active" id="simple1Tab">
-                <h5>Upload Achievements</h5>
-                
-                <div class="row">
-                    <div class="six columns">
-                        <form action='tdashboard' method='POST' enctype="multipart/form-data">
-                            {%csrf_token%}
-                            <fieldset>
-                                <legend>Upload achievements</legend>
-                                
-                                    <div class="six columns">
-                                        <label>Title</label>
-                                        <input type="text" class="smoothborder" id='title' name='title'/>
-                                        <label>Upload Image</label>
-                                        
-
-                                        <input type="file" name="files[]" id="files" ><br><br>
-                                        <input type="hidden" name="url" id="url">
-                                        <button type="button" onclick='uploadimage()' class="readmore">Upload Image</button><br><br>
-
-
-                                        <label>Description</label>
-                                        <textarea rows="4" cols="50" class="smoothborder" name="desc" > </textarea>
-                                        
-
-                                        <label>Date </label>
-                                        <input type="date" class="smoothborder" name='date'/>
-                                        <input type="submit" value ="submit" class="readmore"><br><br>
-                                        
-                                    </div>
-                                
-                                
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="six columns">
+		
+<div class="row">
+    <ul class="tabs-content">
+        <li class="active" id="simple1Tab">
+        <h5>Upload Notes</h5>
+        
+        <div class="row">
+            <div class="six columns">
+                <form enctype="multipart/form-data" method="POST" action="uploadnotes">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Upload notes</legend>
                         
-                            <br>
-                            <div class="panel">
-                                <h5>This is a regular panel.</h5>
-                                <p>
-                                    It has an easy to override visual style, and is appropriately subdued.
-                                </p>
-                            </div>
+                            <div class="six columns">
+                                <label>Filename</label>
+                                <input type="text" class="smoothborder" name='fname' id='fname'/>
+                                <label>Choose Department</label>
+                                <select name="dept" class="smoothborder" id="dept" style="width: 100px;">
+                                    <option value="CSE">CSE</option>
+                                    <option value="ECE">ECE</option>
+                                    <option value="EEE">EEE</option>
                             
-                        
-                    </div>
-                </div>
-                
-                
-			</li>
-            
-			<li id="simple2Tab">
-                <h5>FORMS 2</h5>
-                
-                <div class="row">
-                    <div class="six columns">
-                        <form>
-                            <fieldset>
-                                <legend>Form Title Here</legend>
+                                </select>
+                                <br><br>
+                                <label>Choose Semester</label>
+                                <select name="sem" class="smoothborder" id="sem" style="width: 100px;">
+                                    <option value="Sem 1">Semester 1</option>
+                                    <option value="Sem 2">Semester 2</option>
+                                    <option value="Sem 3">Semester 3</option>
+                                    <option value="Sem 4">Semester 4</option>
+                                    <option value="Sem 5">Semester 5</option>
+                                    <option value="Sem 6">Semester 6</option>
+                                    <option value="Sem 7">Semester 7</option>
+                                    <option value="Sem 8">Semester 8</option>
+                                </select><br>
+                                <br>
+                                <label>Choose Subject</label>
+                                <select class="ui search dropdown" name ="sub" id="sub">
+                                    <option value="">Choose Subject</option>
+                                    <option value="EMF">EMF</option>
+                                    <option value="CT">CT</option>
+                                    <option value="LIC">LIC</option>
+                                    <option value="PRP">PRP</option>
+                                    <option value="EVS">EVS</option>
+                                    <option value="EC2">EC II</option>
+                                  </select>
+                                  <br><br>
+                                <label>Upload file</label>
+                                <input type="file" name="files[]" id="files" ><br><br>
+                                <input type="hidden" name="pdfurl" id="pdfurl">
+                                <button type="button" onclick='uploadpdf()' class="readmore">Upload pdf</button><br><br>
+                                <input type="submit" value ="submit" class="readmore"><br><br>
                                 
-                                    <div class="six columns">
-                                        <label>Name</label>
-                                        <input type="text" class="smoothborder"/>
-                                        <label>Occupation</label>
-                                        <input type="text" class="smoothborder"/>
-                                        <label>Name</label>
-                                        <input type="text" class="smoothborder"/>
-                                        <label>Occupation</label>
-                                        <input type="text" class="smoothborder"/>
-                                        
-                                    </div>
-                                
-                                
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="six columns">
-                        
-                            <br>
-                            <div class="panel">
-                                <h5>This is a regular panel 2</h5>
-                                <p>
-                                    It has an easy to override visual style, and is appropriately subdued.
-                                </p>
                             </div>
-                            
-                        
-                    </div>
-                </div>
-            </li>
-			<li id="simple3Tab">
-                <h5>Upload Notes</h5>
-                
-                <div class="row">
+                    </fieldset>
+                </form>
+            </div>
+        
 
-                    <div class="six columns">
-                        
-                            <br>
-                            <div class="panel">
-                                <h5>This is a regular panel 3</h5>
-                                <p>
-                                    It has an easy to override visual style, and is appropriately subdued.
-                                </p>
-                            </div>
-                            
-                        
+            <div class="six columns">
+                
+                    <br>
+                    <div class="panel">
+                        <h5>This is a regular panel 3</h5>
+                        <p>
+                            It has an easy to override visual style, and is appropriately subdued.
+                        </p>
                     </div>
-                </div>
-              </li>
-		</ul>
+                    
+                
+            </div>
+        </div>
+      </li>
+    </ul>
 	</div>
-	<!-- ACCORDIONS-->
-	
 </div>
+</div>
+
 	
 	
 <div class="hr">
@@ -290,9 +252,17 @@
   var storage = firebase.storage();
   var storageref=storage.ref();
   
-  function uploadimage(){
-    var file=document.getElementById("files").files[0];
-    var thisref=storageref.child('Achievements/'.concat(file.name)).put(file);
+  function uploadpdf(){
+    
+    
+    var pdf=document.getElementById("files").files[0];
+    var dept=document.getElementById("dept").value;
+    var sem=document.getElementById("sem").value;
+    var sub=document.getElementById("sub").value;
+    var fname=document.getElementById("fname").value;
+
+    
+    var thisref=storageref.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(fname)).put(pdf);
     thisref.on('state_changed',function(snapshot) {
         console.log('Done');
         
@@ -308,9 +278,8 @@
   });
 });
 }
+
 </script>
-
-
 
 </body>
 </html>
