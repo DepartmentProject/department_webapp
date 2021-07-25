@@ -67,9 +67,13 @@ def tdashboard(request):
         image = store.child('Achievements/'+file.name).get_url(None)
         ach = {'title':title, 'desc':desc,'date':date,'image':image}
         db.child('Achievements').push(ach)
-        return render(request,'tdashboard.html')
-
-    return render(request,'tdashboard.html')
+        return redirect('tdashboard')
+    else:
+        ach =  db.child('Achievements').get().val()
+        achdic={}
+        for i in ach.keys():
+            achdic[i] = list(ach[i].values())
+        return render(request,'tdashboard.html',{'achdic': achdic})
 
 def cse_home(request):
     return render(request, "cse.html")
@@ -90,15 +94,26 @@ def contact(request):
 
 def uploadnotes(request):
     if request.method=='POST':
-        fname =request.POST["fname"]
-        dept =request.POST["dept"]
-        sem =request.POST["sem"]
-        sub =request.POST["sub"]
-        pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
-        db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
-        return render(request,'uploadnotes.html')
+        if 'fname' in request.POST:
+            fname =request.POST["fname"]
+            dept =request.POST["dept"]
+            sem =request.POST["sem"]
+            sub =request.POST["sub"]
+            pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
+            print(pdfurl)
+            db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
+            return redirect('uploadnotes')
+        else:
+            Dept =request.POST["Dept"]
+            Sem =request.POST["Sem"]
+            Sub =request.POST["Sub"]
+            book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
+            print(Dept, Sem, Sub)
+            
+            return render(request, "uploadnotes.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub})
 
-    return render(request, "uploadnotes.html")
+    else:
+        return render(request, "uploadnotes.html")
 
 def cse_cgpa(request):
     sem_dict = {1:{'Communicative English':4 ,'Engineering Mathematics I':4, 'Engineering Physics':3, 'Engineering Chemistry':3, 'Problem Solving and Python Programming':3, 'Engineering Graphics':4, 'Problem Solving and Python Programming Laboratory':2, 'Physics and Chemistry Laboratory':2},
@@ -223,10 +238,33 @@ def ece_cgpa(request):
 
 def ece_notes(request):
     x= db.child('Semester3').get().val()
-    prp = db.child('ECE').child('Sem 4').child('PRP').get().val()
-    evs = db.child('ECE').child('Sem 4').child('EVS').get().val()
-    lic = db.child('ECE').child('Sem 4').child('LIC').get().val()
-    ct = db.child('ECE').child('Sem 4').child('CT').get().val()
-    ec2 = db.child('ECE').child('Sem 4').child('EC2').get().val()
-    emf = db.child('ECE').child('Sem 4').child('EC2').get().val()
+    prp = db.child('ECE').child('Sem4').child('PRP').get().val()
+    evs = db.child('ECE').child('Sem4').child('EVS').get().val()
+    lic = db.child('ECE').child('Sem4').child('LIC').get().val()
+    ct = db.child('ECE').child('Sem4').child('CT').get().val()
+    ec2 = db.child('ECE').child('Sem4').child('EC2').get().val()
+    emf = db.child('ECE').child('Sem4').child('EMF').get().val()
     return render(request, "ece_notes.html",{'key':x, 'sem4prp':prp, 'sem4evs':evs, 'sem4lic':lic, 'sem4ct':ct, 'sem4ec2':ec2, 'sem4emf':emf})
+
+def dele(request):
+    if 'namee' in request.POST:
+        NAME =request.POST["namee"]
+        pic_url = db.child('Achievements').child(NAME).child('imageurl').get().val()
+        db.child('Achievements').child(NAME).child('desc').remove()
+        db.child('Achievements').child(NAME).child('title').remove()
+        db.child('Achievements').child(NAME).child('date').remove()
+        db.child('Achievements').child(NAME).child('image').remove()
+        print(NAME, pic_url)
+        #store.child('Achievements/test1.txt').delete()
+        return redirect('tdashboard')
+    else:
+        DEPT =request.POST["book_dept"]
+        SEM =request.POST["book_sem"]
+        SUB =request.POST["book_sub"]
+        BOOK =request.POST["book_name"]
+
+        print(DEPT,SEM,SUB,BOOK)
+        db.child(DEPT).child(SEM).child(SUB).child(BOOK).remove()
+        return render(request, 'uploadnotes.html',{'msg':'Successfully Deleted'})
+
+

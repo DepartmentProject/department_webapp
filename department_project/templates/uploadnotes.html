@@ -134,14 +134,14 @@
                                 <br><br>
                                 <label>Choose Semester</label>
                                 <select name="sem" class="smoothborder" id="sem" style="width: 100px;">
-                                    <option value="Sem 1">Semester 1</option>
-                                    <option value="Sem 2">Semester 2</option>
-                                    <option value="Sem 3">Semester 3</option>
-                                    <option value="Sem 4">Semester 4</option>
-                                    <option value="Sem 5">Semester 5</option>
-                                    <option value="Sem 6">Semester 6</option>
-                                    <option value="Sem 7">Semester 7</option>
-                                    <option value="Sem 8">Semester 8</option>
+                                    <option value="Sem1">Semester 1</option>
+                                    <option value="Sem2">Semester 2</option>
+                                    <option value="Sem3">Semester 3</option>
+                                    <option value="Sem4">Semester 4</option>
+                                    <option value="Sem5">Semester 5</option>
+                                    <option value="Sem6">Semester 6</option>
+                                    <option value="Sem7">Semester 7</option>
+                                    <option value="Sem8">Semester 8</option>
                                 </select><br>
                                 <br>
                                 <label>Choose Subject</label>
@@ -178,6 +178,80 @@
                     </div>
                     
                 
+            </div>
+            <div class="twelve columns">
+                <h5>Delete Notes</h5>
+                <hr>
+                <form enctype="multipart/form-data" method="POST" action="uploadnotes">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Delete notes</legend>
+                        
+                            <div class="six columns">
+                                
+                                <label>Choose Department</label>
+                                <select name="Dept" class="smoothborder" id="Dept" style="width: 100px;">
+                                    <option value="CSE">CSE</option>
+                                    <option value="ECE">ECE</option>
+                                    <option value="EEE">EEE</option>
+                            
+                                </select>
+                                <br><br>
+                                <label>Choose Semester</label>
+                                <select name="Sem" class="smoothborder" id="Sem" style="width: 100px;">
+                                    <option value="Sem1">Semester 1</option>
+                                    <option value="Sem2">Semester 2</option>
+                                    <option value="Sem3">Semester 3</option>
+                                    <option value="Sem4">Semester 4</option>
+                                    <option value="Sem5">Semester 5</option>
+                                    <option value="Sem6">Semester 6</option>
+                                    <option value="Sem7">Semester 7</option>
+                                    <option value="Sem8">Semester 8</option>
+                                </select><br>
+                                <br>
+                                <label>Choose Subject</label>
+                                <select class="ui search dropdown" name ="Sub" id="Sub">
+                                    <option value="">Choose Subject</option>
+                                    <option value="EMF">EMF</option>
+                                    <option value="CT">CT</option>
+                                    <option value="LIC">LIC</option>
+                                    <option value="PRP">PRP</option>
+                                    <option value="EVS">EVS</option>
+                                    <option value="EC2">EC II</option>
+                                  </select>
+                                  <br><br>
+                                
+                                <input type="submit" value ="submit" class="readmore"><br><br>
+                                
+                            </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="twelve columns">
+                <h5>Delete Notes</h5>
+                <hr>
+                <ol>
+
+                    {%for j in book %}
+                    <form action="dele" method="POST">
+                        {%csrf_token%}
+                    <li>
+                        <input type="hidden" name="book_dept" id="book_dept" value={{DEPT}}>
+                        <input type="hidden" name="book_sem" id="book_sem" value={{SEM}}>
+                        <input type="hidden" name="book_sub" id="book_sub" value={{SUB}}>
+                        <input type="hidden" name="book_name" id="book_name" value={{j}}>
+
+                        {{j}}<input type="submit" value ="Delete Note">  
+                        <button type="button" onclick="deleteFile()" class="readmore">DELETE</button>
+                        
+                    </li> 
+                    </form>  
+                    <br>     
+                    {% endfor %}                 
+                </ol>
+                {% if msg %}
+                {{msg}}
+                {% endif %}
             </div>
         </div>
       </li>
@@ -279,6 +353,24 @@
 });
 }
 
+
+function deleteFile() {
+  const storageRef = firebase.storage().ref();
+  var dept=document.getElementById("book_dept").value;
+  var sem=document.getElementById("book_sem").value;
+  var sub=document.getElementById("book_sub").value;
+  // [START storage_delete_file]
+  // Create a reference to the file to delete
+  var desertRef = storageRef.child('ECE/ece_notes/Sem4/EVS/EVS GE8291.pdf');
+
+  // Delete the file
+  desertRef.delete().then(() => {
+    // File deleted successfully
+  }).catch((error) => {
+    // Uh-oh, an error occurred!
+  });
+  // [END storage_delete_file]
+}
 </script>
 
 </body>
