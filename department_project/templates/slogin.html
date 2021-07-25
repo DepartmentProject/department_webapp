@@ -12,7 +12,7 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>CSE</title>
+<title>EEE</title>
 
 <!-- CSS Files-->
 <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
@@ -64,16 +64,31 @@
 			</li>
 			<li>
 			<a href="#">Login</a>
+			<!--
 			<ul>
-				<li><a href="tlogin">Faculty Login</a></li>
-				<li><a href="slogin">Student Login</a></li>
-			</ul>
+				<li><a href="blogpage1.html">Blog page style 1</a></li>
+				<li><a href="blogpage2.html">Blog page style 2</a></li>
+				<li><a href="blogpage3.html">Blog page style 3</a></li>
+				<li><a href="blogsinglepost.html">Single post</a></li>
+			</ul>-->
 			</li>
 			<li>
 			<a href="#">Help</a>
-			
+			<!--
+			<ul>
+				<li><a href="about.html">About us</a></li>
+				<li><a href="services.html">Services</a></li>
+			</ul>-->
 			</li>
-			
+			<!--
+			<li>
+			<a href="#">Features</a>
+			<ul>
+				<li><a href="columns.html">Columns</a></li>
+				<li><a href="elements.html">Elements</a></li>
+				<li><a href="typography.html">Typography</a></li>
+			</ul>
+			</li>-->
 			<li>
 			<a href="contact">Contact</a>
 			</li>
@@ -89,7 +104,7 @@
 	<div class="row">
 		<div class="eight columns">
 			<p class="bread leftalign">
-				 You are here: <a href="index"> Home</a>  / <a href="achievements">Achievements</a>
+				 You are here: <a href="index"> Home</a> / <a href="eee_home">EEE</a> / <a href="eee_cgpa">GPA calculator</a>
 			</p>
 		</div>
 		
@@ -97,43 +112,38 @@
 </div>
 <div class="hr">
 </div>
-<!-- CONTENT 
-================================================== -->
-<div class="row">
-	<div class="twelve columns noleftmargin">
-	    <!-- MAIN CONTENT -->
-		<div class="sixteen columns noleftmargin">
-            {%for i,j in achdic.items%}
-			<div class="six columns">
-				<div class="boxblog">
-					<h5>{{j.3}}</h5>
-					<p class="small date">
-                        
-						Posted on: {{j.0}} 
-					</p>
-					<p>
-					<a href={{j.2}} target="__blank">	<img src={{j.2}} alt="" class="thumb"> </a> {{j.1}}
-					</p>
-					
-				</div>
-			</div>
-            {%endfor%}
+<!------------------------------ FORMS------------------------------>
+	<div class="row">
+		
+		<!-- FORMS-->
+		<div class="seven columns">
+			<h5>Student Login </h5>
+			<form action ="slogin" method = "POST">
+                {%csrf_token%}
+			<div class="panel">
+				<h5>Username</h5>
+				<input type ="email"  name="susername" placeholder="Enter your official mail ID"><br>
+                <h5>Password</h5>
+                <input type ="password" name="spassword" placeholder="Enter your password">
 
-            
-            
-		</div>
+                <br>
+					<input type="submit" value = "Login" class="readmore">
+                    
+			</div>
+			</form>
+			
+            <form method="GET" action="reg">
+                <button type="submit">Register here</button>
+            </form>
+			
+		</div>		
 		
 	</div>
-</div>
 <div class="hr">
 </div>
 
-
-
-    <!-- FOOOTER 
+<!-- FOOOTER 
 ================================================== -->
-
-
 <div id="footer">
 	<footer class="row">
 	<p class="back-top floatright">
@@ -162,12 +172,11 @@
 		
 	</div>
 </div>
-
-
 <!-- JAVASCRIPTS 
 ================================================== -->
 <!-- Javascript files placed here for faster loading -->
-<script src="{% static 'javascripts/foundation.min.js' %}"></script>
+<script src="{% static 'javascripts/foundation.min.js' %}"></script>   
+<script src="{% static 'javascripts/jquery.easing.1.3.js' %}"></script>
 <script src="{% static 'javascripts/elasticslideshow.js' %}"></script>
 <script src="{% static 'javascripts/jquery.carouFredSel-6.0.5-packed.js' %}"></script>
 <script src="{% static 'javascripts/jquery.cycle.js' %}"></script>
@@ -178,6 +187,5 @@
 <script src="{% static 'javascripts/hoverIntent.js' %}"></script>
 <script src="{% static 'javascripts/superfish.js' %}"></script>
 <script src="{% static 'javascripts/responsivemenu.js' %}"></script>
-<script src="{% static 'javascripts/jquery.easing.1.3.js' %}"></script>
 </body>
 </html>

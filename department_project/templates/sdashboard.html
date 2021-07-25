@@ -89,7 +89,7 @@
 	<div class="row">
 		<div class="eight columns">
 			<p class="bread leftalign">
-				 You are here: <a href="index"> Home</a> / <a href="tdash">Faculty Dashboard</a>
+				 You are here: <a href="index"> Home</a> / <a href="sdashboard">Students Dashboard</a>
 			</p>
 		</div>
 		
@@ -156,27 +156,6 @@
                             
                         
                     </div>
-                    
-                        <div class="twelve columns">
-                            <h5>Delete Achievements</h5>
-                            <hr>
-                            <ol>
-                                {%for i,j in achdic.items%}
-                                <form action="dele" method="POST">
-                                    {%csrf_token%}
-                                <li>
-                                    
-                                    <input type="hidden" name="namee" id="namee" value={{i}}>
-
-                                    {{j.3}}<br>&emsp;&emsp;{{j.1}}<input type="submit" value ="Delete Achievement">   
-                                    
-                                </li> 
-                                </form>  
-                                <br>     
-                                {% endfor %}                 
-                            </ol>
-                        </div>
-                    
                 </div>
                 
                 
@@ -335,9 +314,6 @@
   });
 });
 }
-
-
-  
 </script>
 
 

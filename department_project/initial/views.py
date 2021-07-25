@@ -60,28 +60,91 @@ def tlogin(request):
             print('Invalid Login credentials')
     return render(request, "login.html")
 
+def slogin(request):
+    if request.method=='POST':
+        username =request.POST["susername"]
+        password =request.POST["spassword"]
+        try:
+            userlogin= auth.sign_in_with_email_and_password(username,password)
+            return render(request,'sdashboard.html',{'user':username})
+        except:
+            print('Invalid Login credentials')
+    return render(request, "slogin.html")
+
 def tdashboard(request):
     if request.method=='POST':
-        
-        desc =request.POST["desc"]
-        title =request.POST["title"]
-        date =request.POST["date"]
-        file = request.FILES['files[]']
-        image = store.child('Achievements/'+file.name).get_url(None)
-        ach = {'title':title, 'desc':desc,'date':date,'image':image}
-        db.child('Achievements').push(ach)
-        return redirect('tdashboard')
-    else:
-        ach =  db.child('Achievements').get().val()
-        achdic={}
-        for i in ach.keys():
-            achdic[i] = list(ach[i].values())
-        return render(request,'tdashboard.html',{'achdic': achdic})
+        if 'desc' in request.POST:
+            desc =request.POST["desc"]
+            title =request.POST["title"]
+            date =request.POST["date"]
+            file = request.FILES['files[]']
+            image = store.child('Achievements/'+file.name).get_url(None)
+            ach = {'title':title, 'desc':desc,'date':date,'image':image}
+            db.child('Achievements').push(ach)
+            return redirect('tdashboard')
+        if 'ndesc' in request.POST:
+            ndept =request.POST["ndept"]
+            ndesc =request.POST["ndesc"]
+            ntitle =request.POST["ntitle"]
+            ndate =request.POST["ndate"]
+            news = {'title':ntitle, 'desc':ndesc,'date':ndate}
+            db.child('News').child(ndept).push(news)
+            print(news)
+            return redirect('tdashboard')
+
+    return render(request,'tdashboard.html')
 
 def cse_home(request):
     return render(request, "cse.html")
+
+
+def sdashboard(request):
+    return render(request, "sdashboard.html")
+
+def cse_news(request):
+    news =  db.child('News').child('CSE').get().val()
+    newsdic={}
+    for i in news.keys():
+        newsdic[i] = list(news[i].values())
+    return render(request, "cse_news.html",{'newsdic': newsdic})
+
+
+def ece_news(request):
+    news =  db.child('News').child('ECE').get().val()
+    newsdic={}
+    for i in news.keys():
+        newsdic[i] = list(news[i].values())
+    return render(request, "ece_news.html",{'newsdic': newsdic})
+
+
+def eee_news(request):
+    news =  db.child('News').child('EEE').get().val()
+    newsdic={}
+    for i in news.keys():
+        newsdic[i] = list(news[i].values())
+    return render(request, "eee_news.html",{'newsdic': newsdic})
+
+
 def temp(request):
     return render(request, "temp.html")
+
+def reg(request):
+    if request.method=='POST':
+        username =request.POST["susername"]
+        password =request.POST["spassword"]
+        rpassword =request.POST["srpassword"]
+
+        try:
+            if '@psgitech.ac.in' in username and password==rpassword:
+                user = auth.create_user_with_email_and_password(username,password)
+                return redirect("slogin")
+            else:
+                return HttpResponse('Login with official mail ID / Retype the correct password')
+        except:
+            print('Invalid email or password too short')
+    
+    
+    return render(request, "reg.html")
 
 def eee_home(request):
     return render(request, "eee.html")

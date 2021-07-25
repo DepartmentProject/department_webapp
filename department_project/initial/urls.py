@@ -36,7 +36,15 @@ urlpatterns = [
     path('ece_cgpa', views.ece_cgpa, name = "ece_cgpa"),
     path('ece_notes', views.ece_notes, name = "ece_notes"),
     path('tlogin', views.tlogin, name = "tlogin"),
+    path('slogin', views.slogin, name = "slogin"),
+    path('reg', views.reg, name = "reg"),
     path('tdashboard', views.tdashboard, name = "tdashboard"),
+    path('sdashboard', views.sdashboard, name = "sdashboard"),
     path('uploadnotes', views.uploadnotes, name = "uploadnotes"),
-    path('dele', views.dele, name = "dele")
+    path('dele', views.dele, name = "dele"),
+    path('cse_news', views.cse_news, name = "cse_news"),
+    path('eee_news', views.eee_news, name = "eee_news"),
+    path('ece_news', views.ece_news, name = "ece_news"),
+
+    
 ]
