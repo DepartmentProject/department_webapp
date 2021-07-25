@@ -132,7 +132,7 @@ def reg(request):
         rpassword =request.POST["srpassword"]
 
         try:
-            if 'psgitech.ac.in' in username and password==rpassword:
+            if '@psgitech.ac.in' in username and password==rpassword:
                 user = auth.create_user_with_email_and_password(username,password)
                 return redirect("slogin")
             else:
