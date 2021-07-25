@@ -12,7 +12,7 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>CSE</title>
+<title>EEE</title>
 
 <!-- CSS Files-->
 <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
@@ -65,8 +65,8 @@
 			<li>
 			<a href="#">Login</a>
 			<ul>
-				<li><a href="tlogin">Faculty Login</a></li>
-				<li><a href="slogin">Student Login</a></li>
+				<li><a href="#">Faculty Login</a></li>
+				<li><a href="#">Student Login</a></li>
 			</ul>
 			</li>
 			<li>
@@ -89,7 +89,7 @@
 	<div class="row">
 		<div class="eight columns">
 			<p class="bread leftalign">
-				 You are here: <a href="index"> Home</a>  / <a href="achievements">Achievements</a>
+				 You are here: <a href="index"> Home</a> / <a href="eee_home">EEE</a> / <a href="eee_news">Departmental News</a>
 			</p>
 		</div>
 		
@@ -103,23 +103,21 @@
 	<div class="twelve columns noleftmargin">
 	    <!-- MAIN CONTENT -->
 		<div class="sixteen columns noleftmargin">
-            {%for i,j in achdic.items%}
+            {%for i,j in newsdic.items%}
 			<div class="six columns">
 				<div class="boxblog">
-					<h5>{{j.3}}</h5>
+					<h5>{{j.2}}</h5>
 					<p class="small date">
                         
 						Posted on: {{j.0}} 
 					</p>
 					<p>
-					<a href={{j.2}} target="__blank">	<img src={{j.2}} alt="" class="thumb"> </a> {{j.1}}
+						{{j.1}}
 					</p>
-					
 				</div>
 			</div>
             {%endfor%}
 
-            
             
 		</div>
 		
