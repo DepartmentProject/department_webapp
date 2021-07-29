@@ -104,7 +104,7 @@
 	<div class="twelve columns">
 		<h5>SECTIONS</h5>
 		<dl class="tabs">
-			<dd class="active"><a href="#simple1">Achievements Section</a></dd>
+			<dd class="active"><a href="tdashboard">Achievements Section</a></dd>
 			<dd><a href="#simple2">Department News Section</a></dd>
 			<dd><a href="#simple3">Notes Section</a></dd>
 		</dl>
@@ -164,13 +164,13 @@
                             <ol>
 
                                 {%for i,j in achdic.items%}
-                                <form action="dele" method="POST">
+                                <form action="#" method="POST">
                                     {%csrf_token%}
                                 <li>
                                     
                                     <input type="hidden" name="namee" id="namee" value={{j.3}}>
 
-                                    {{j.3}}<button type="button" onclick="deleteFile('{{j.3}}')" class="readmore">DELETE</button> <br>
+                                    {{j.3}}<button type="button" onclick="deleteFileachievement('{{j.3}}')" class="readmore">DELETE</button> <br>
                                     &emsp;&emsp;{{j.1}} 
                                     
                                 </li> 
@@ -196,7 +196,7 @@
                                 <legend>Upload departmental news</legend>
                                     <div class="six columns">
                                         <label>Choose Department</label>
-                                        <select name="ndept" class="smoothborder" id="dept" style="width: 100px;">
+                                        <select name="ndept" class="smoothborder" id="ndept" style="width: 100px;">
                                             <option value="CSE">CSE</option>
                                             <option value="ECE">ECE</option>
                                             <option value="EEE">EEE</option>
@@ -235,7 +235,7 @@
                 
                 <div class="row">
                     <div class="six columns">
-                        <form enctype="multipart/form-data" method="POST" action="#simple3">
+                        <form enctype="multipart/form-data" method="POST" action="tdashboard">
                             {% csrf_token %}
                             <fieldset>
                                 <legend>Upload notes</legend>
@@ -275,7 +275,7 @@
                                           </select>
                                           <br><br>
                                         <label>Upload file</label>
-                                        <input type="file" name="files[]" id="files" ><br><br>
+                                        <input type="file" name="pdfs[]" id="pdfs" ><br><br>
                                         <input type="hidden" name="pdfurl" id="pdfurl">
                                         <button type="button" onclick='uploadimage(document.getElementById("fname").value)' class="readmore">Upload pdf</button><br><br>
                                         <input type="submit" value ="submit" class="readmore"><br><br>
@@ -301,7 +301,7 @@
                     <div class="twelve columns">
                         <h5>Delete Notes</h5>
                         <hr>
-                        <form enctype="multipart/form-data" method="POST" action="#simple3">
+                        <form enctype="multipart/form-data" method="POST" action="tdashboard">
                             {% csrf_token %}
                             <fieldset>
                                 <legend>Delete notes</legend>
@@ -352,22 +352,28 @@
                         <ol>
         
                             {%for j in book %}
-                            <form action="tdashboard" method="POST">
+                            <form action="dele" method="POST">
                                 {%csrf_token%}
                             <li>
                                 <input type="hidden" name="book_dept" id="book_dept" value={{DEPT}}>
                                 <input type="hidden" name="book_sem" id="book_sem" value={{SEM}}>
                                 <input type="hidden" name="book_sub" id="book_sub" value={{SUB}}>
                                 <input type="hidden" name="book_name" id="book_name" value={{j}}>
+                                
         
                                 {{j}}<input type="submit" value ="Delete Note">  
-                                <button type="button" onclick="deleteFile('{{j}}')" class="readmore">DELETE</button>
+                                <button type="button" onclick="deleteFilenotes('{{j}}')" class="readmore">DELETE</button>
                                 
                             </li> 
                             </form>  
                             <br>     
                             {% endfor %}                 
                         </ol>
+                     <!--    {% if BB %}<ol>
+                            {% for j in BB %}
+                                <li>{{j}}<br><br></li>
+                            {% endfor %}</ol>
+                        {% endif %}  -->
                       
                     </div>
                 </div>
@@ -466,12 +472,13 @@
     else if (document.getElementById("fname").value)
     {
         
-        var pdf=document.getElementById("files").files[0];
+        var pdf=document.getElementById("pdfs").files[0];
         var dept=document.getElementById("dept").value;
         var sem=document.getElementById("sem").value;
         var sub=document.getElementById("sub").value;
+        alert(pdf);
         var thisref=storageref.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(va)).put(pdf);
-        alert("I'm here ")
+        
 
         thisref.on('state_changed',function(snapshot) {
             console.log('Done');
@@ -490,29 +497,38 @@
         }
 }
 
-
-
-
-function deleteFile(data) {
-  const storageRef = firebase.storage().ref();
-  var N=data;
-  if (document.getElementById('title').value){
-  db.child('Achievements').child(N).remove()
+function deleteFileachievement(data) {
+        const storageRef = firebase.storage().ref();
+        var N=data;
   
-  // [START storage_delete_file]
-  // Create a reference to the file to delete
-  var desertRef = storageRef.child('Achievements/'.concat(N));
-
-  // Delete the file
-  desertRef.delete().then(() => {
     
-    location.reload();
-  }).catch((error) => {
-    // Uh-oh, an error occurred!
-  });
-  // [END storage_delete_file]
+        alert('IF');
+        db.child('Achievements').child(N).remove()
+        
+        // [START storage_delete_file]
+        // Create a reference to the file to delete
+        var desertRef = storageRef.child('Achievements/'.concat(N));
+
+        // Delete the file
+        desertRef.delete().then(() => {
+            
+            location.reload();
+        }).catch((error) => {
+            // Uh-oh, an error occurred!
+        });
+        // [END storage_delete_file]
     }
-    else if (document.getElementById('book_name').value){
+    
+    
+        
+
+
+
+function deleteFilenotes(data) {
+        const storageRef = firebase.storage().ref();
+        var N=data;
+  
+        alert("ELSEIF");
         var dept=document.getElementById("book_dept").value;
         var sem=document.getElementById("book_sem").value;
         var sub=document.getElementById("book_sub").value;
@@ -528,7 +544,9 @@ function deleteFile(data) {
             // Uh-oh, an error occurred!
         });
         }
-}
+        
+
+
   
 </script>
 

@@ -100,14 +100,14 @@ def tdashboard(request):
                 pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
                 print(pdfurl)
                 db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
-                return redirect('tdashboard')
+                return redirect('/tdashboard#simple3')
             else:
                 Dept =request.POST["Dept"]
                 Sem =request.POST["Sem"]
                 Sub =request.POST["Sub"]
                 book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
                 print(Dept, Sem, Sub)
-                
+                #return redirect('/tdashboard#simple3')
                 return render(request, "tdashboard.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub})
     else:
         ach =  db.child('Achievements').get().val()
@@ -341,9 +341,9 @@ def dele(request):
         SEM =request.POST["book_sem"]
         SUB =request.POST["book_sub"]
         BOOK =request.POST["book_name"]
-
+        #B =  db.child(DEPT).child(SEM).child(SUB).get().val()
         print(DEPT,SEM,SUB,BOOK)
         db.child(DEPT).child(SEM).child(SUB).child(BOOK).remove()
-        return render(request, 'uploadnotes.html',{'msg':'Successfully Deleted'})
+        return redirect('tdashboard')
 
 
