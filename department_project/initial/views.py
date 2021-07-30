@@ -88,9 +88,9 @@ def tdashboard(request):
             ntitle =request.POST["ntitle"]
             ndate =request.POST["ndate"]
             news = {'title':ntitle, 'desc':ndesc,'date':ndate}
-            db.child('News').child(ndept).push(news)
+            db.child('News').child(ndept).child(ntitle).set(news)
             print(news)
-            return redirect('tdashboard')
+            return redirect('/tdashboard#simple2')
         else:
             if 'fname' in request.POST:
                 fname =request.POST["fname"]
@@ -108,14 +108,27 @@ def tdashboard(request):
                 book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
                 print(Dept, Sem, Sub)
                 #return redirect('/tdashboard#simple3')
-                return render(request, "tdashboard.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub})
+                return render(request, "tdashboard.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub, 'A':'active'})
     else:
         ach =  db.child('Achievements').get().val()
         achdic={}
         for i in ach.keys():
             achdic[i] = list(ach[i].values())
-        
-        return render(request,'tdashboard.html',{'achdic':achdic})
+        cse_news = db.child('News').child('CSE').get().val()
+        ece_news = db.child('News').child('ECE').get().val()
+        eee_news = db.child('News').child('EEE').get().val()
+        csedic = {}
+        for j in cse_news.keys():
+            csedic[j] = list(cse_news[j].values())
+
+        ecedic = {}
+        for j in ece_news.keys():
+            ecedic[j] = list(ece_news[j].values())
+
+        eeedic = {}
+        for j in eee_news.keys():
+            eeedic[j] = list(eee_news[j].values())
+        return render(request,'tdashboard.html',{'achdic':achdic, 'csedic':csedic, 'ecedic':ecedic, 'eeedic':eeedic})
 
 def cse_home(request):
     return render(request, "cse.html")
@@ -335,15 +348,6 @@ def ece_notes(request):
     emf = db.child('ECE').child('Sem4').child('EMF').get().val()
     return render(request, "ece_notes.html",{'key':x, 'sem4prp':prp, 'sem4evs':evs, 'sem4lic':lic, 'sem4ct':ct, 'sem4ec2':ec2, 'sem4emf':emf})
 
-def dele(request):
-    
-        DEPT =request.POST["book_dept"]
-        SEM =request.POST["book_sem"]
-        SUB =request.POST["book_sub"]
-        BOOK =request.POST["book_name"]
-        #B =  db.child(DEPT).child(SEM).child(SUB).get().val()
-        print(DEPT,SEM,SUB,BOOK)
-        db.child(DEPT).child(SEM).child(SUB).child(BOOK).remove()
-        return redirect('tdashboard')
+
 
 

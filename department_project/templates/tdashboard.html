@@ -89,8 +89,9 @@
 	<div class="row">
 		<div class="eight columns">
 			<p class="bread leftalign">
-				 You are here: <a href="index"> Home</a> / <a href="tdash">Faculty Dashboard</a>
+				 You are here: <a href="index"> Home</a> / <a href="tdash">Faculty Dashboard</a> 
 			</p>
+            
 		</div>
 		
 	</div>
@@ -104,12 +105,23 @@
 	<div class="twelve columns">
 		<h5>SECTIONS</h5>
 		<dl class="tabs">
-			<dd class="active"><a href="tdashboard">Achievements Section</a></dd>
+            {% if A %}
+            <dd ><a href="#simple1">Achievements Section</a></dd>
+			<dd><a href="#simple2">Department News Section</a></dd>
+			<dd class="active"><a href="#simple3">Notes Section</a></dd>
+            {% else %}
+			<dd class="active"><a href="#simple1">Achievements Section</a></dd>
 			<dd><a href="#simple2">Department News Section</a></dd>
 			<dd><a href="#simple3">Notes Section</a></dd>
+            {% endif %}
 		</dl>
 		<ul class="tabs-content">
+            {% if A %}
+			<li id="simple1Tab">
+
+            {% else %}
 			<li class="active" id="simple1Tab">
+            {% endif %}
                 <h5>Upload Achievements</h5>
                 
                 <div class="row">
@@ -228,9 +240,65 @@
                             
                         
                     </div>
+                    <div class="row">
+                        <div class="twelve columns">
+                            <h5>Delete News</h5>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="four columns">
+                            <h5>CSE</h5>
+                            <p><ol>
+                                {%for i,j in csedic.items%}  
+
+                                 <li><b>{{j.2}}</b> <button type="button" onclick="deletenews('CSE','{{j.2}}')" class="readmore">Delete</button><br>
+                                   &emsp;&emsp; {{j.1}}<br><br>
+                                   
+                                     
+
+                                 </li>
+                                {% endfor %}                       
+                            </ol>  </p>
+                        </div>
+                        <div class="four columns">
+                            <h5>ECE</h5>
+                            <p><ol>
+                                {%for i,j in ecedic.items%}  
+
+                                <li><b>{{j.2}}</b> <button type="button" onclick="deletenews('ECE','{{j.2}}')" class="readmore">Delete</button><br>
+
+                                   &emsp;&emsp; {{j.1}}<br><br>
+                                     
+
+                                 </li>
+                                {% endfor %}                       
+                            </ol>  </p>
+                        </div>
+                        <div class="four columns">
+                            <h5>EEE</h5>
+                            <p><ol>
+                                {%for i,j in eeedic.items%}  
+
+                                <li><b>{{j.2}}</b> <button type="button" onclick="deletenews('EEE','{{j.2}}')" class="readmore">Delete</button><br>
+
+                                   &emsp;&emsp; {{j.1}}<br><br>
+                                     
+
+                                 </li>
+                                {% endfor %}                       
+                            </ol>  </p>
+                        </div>
+                    </div>
+                
                 </div>
             </li>
+            {% if A %}
+			<li class="active" id="simple3Tab">
+            {% else %}
 			<li  id="simple3Tab">
+            {% endif %}
                 <h5>Upload Notes</h5>
                 
                 <div class="row">
@@ -299,12 +367,13 @@
                         
                     </div>
                     <div class="twelve columns">
-                        <h5>Delete Notes</h5>
+                        <h5>View Notes</h5>
+
                         <hr>
                         <form enctype="multipart/form-data" method="POST" action="tdashboard">
                             {% csrf_token %}
                             <fieldset>
-                                <legend>Delete notes</legend>
+                                <legend>View notes</legend>
                                 
                                     <div class="six columns">
                                         
@@ -352,7 +421,7 @@
                         <ol>
         
                             {%for j in book %}
-                            <form action="dele" method="POST">
+                            <form action="#" method="POST">
                                 {%csrf_token%}
                             <li>
                                 <input type="hidden" name="book_dept" id="book_dept" value={{DEPT}}>
@@ -361,7 +430,7 @@
                                 <input type="hidden" name="book_name" id="book_name" value={{j}}>
                                 
         
-                                {{j}}<input type="submit" value ="Delete Note">  
+                                {{j}}
                                 <button type="button" onclick="deleteFilenotes('{{j}}')" class="readmore">DELETE</button>
                                 
                             </li> 
@@ -476,7 +545,7 @@
         var dept=document.getElementById("dept").value;
         var sem=document.getElementById("sem").value;
         var sub=document.getElementById("sub").value;
-        alert(pdf);
+       
         var thisref=storageref.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(va)).put(pdf);
         
 
@@ -502,7 +571,7 @@ function deleteFileachievement(data) {
         var N=data;
   
     
-        alert('IF');
+        
         db.child('Achievements').child(N).remove()
         
         // [START storage_delete_file]
@@ -512,7 +581,7 @@ function deleteFileachievement(data) {
         // Delete the file
         desertRef.delete().then(() => {
             
-            location.reload();
+            document.location.reload();
         }).catch((error) => {
             // Uh-oh, an error occurred!
         });
@@ -528,23 +597,38 @@ function deleteFilenotes(data) {
         const storageRef = firebase.storage().ref();
         var N=data;
   
-        alert("ELSEIF");
+        
         var dept=document.getElementById("book_dept").value;
         var sem=document.getElementById("book_sem").value;
         var sub=document.getElementById("book_sub").value;
         // [START storage_delete_file]
         // Create a reference to the file to delete
-        
+        db.child(dept).child(sem).child(sub).child(N).remove()
         var desertRef = storageRef.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(N));
 
         // Delete the file
         desertRef.delete().then(() => {
             alert('SUCCESS');
+            document.location.reload();
         }).catch((error) => {
             // Uh-oh, an error occurred!
         });
         }
-        
+    
+
+function deletenews(data,heading) {
+
+var N=data;
+
+
+// [START storage_delete_file]
+// Create a reference to the file to delete
+db.child('News').child(N).child(heading).remove()
+document.location.reload();
+
+// Delete the file
+
+}        
 
 
   
