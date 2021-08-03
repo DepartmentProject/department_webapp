@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth import logout
 import pyrebase
 
 from django.core.mail import send_mail, BadHeaderError
@@ -31,6 +31,11 @@ def tdash(request):
 def index(request):
     return render(request, "index.html")
 
+def signout(request):
+    
+    logout(request)
+    return redirect('index')
+
 
 '''
 
@@ -55,6 +60,8 @@ def tlogin(request):
         password =request.POST["tpassword"]
         try:
             userlogin= auth.sign_in_with_email_and_password(username,password)
+            user = auth.refresh(userlogin['refreshToken'])    
+            print(user['userId'])
             return redirect('tdashboard')
         except:
             print('Invalid Login credentials')
