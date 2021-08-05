@@ -11,7 +11,9 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>EEE</title>
+<title>iTech Academia - Faculty Dashboard</title>
+<link rel="icon" sizes="192x192" href="https://firebasestorage.googleapis.com/v0/b/department-webapp.appspot.com/o/psg_itech_logo.png?alt=media&token=2888de86-4673-4311-858f-bfc61d0a2655">
+
 
 <!-- CSS Files-->
 <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
@@ -87,14 +89,22 @@
 ================================================== -->
 <div id="subheader" class="blogstyle">
 	<div class="row">
-		<div class="eight columns">
+		<div class="six columns">
 			<p class="bread leftalign">
 				 You are here: <a href="index"> Home</a> / <a href="tdash">Faculty Dashboard</a> 
 			</p>
            <!-- <button type="button"><a href="signout" style="color: black;">LOGOUT</a></button>-->
-            <button type="button" onclick="logout()">LOGOUT</button>
+            
+		</div>
+        <div class="six columns">
+			<p class="bread rightalign" style="text-align: right;">
+                <button type="button"><a href="signout" style="color: black;">LOGOUT</a></button>
+			</p>
+           <!-- <button type="button"><a href="signout" style="color: black;">LOGOUT</a></button>-->
+            
 		</div>
 		
+           
 	</div>
 </div>
 <div class="hr">

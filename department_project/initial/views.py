@@ -34,7 +34,7 @@ def index(request):
 def signout(request):
     
     logout(request)
-    return redirect('index')
+    return redirect('tlogin')
 
 
 '''
@@ -62,10 +62,12 @@ def tlogin(request):
             userlogin= auth.sign_in_with_email_and_password(username,password)
             user = auth.refresh(userlogin['refreshToken'])    
             print(user['userId'])
+            #return render(request,'tdashboard.html', {'user':user['userId']})
             return redirect('tdashboard')
         except:
             print('Invalid Login credentials')
-    return render(request, "login.html")
+    else:
+        return render(request, "login.html")
 
 def slogin(request):
     if request.method=='POST':
@@ -73,7 +75,8 @@ def slogin(request):
         password =request.POST["spassword"]
         try:
             userlogin= auth.sign_in_with_email_and_password(username,password)
-            return render(request,'sdashboard.html',{'user':username})
+            #return render(request,'sdashboard.html',{'user':username})
+            return redirect('sdashboard')
         except:
             print('Invalid Login credentials')
     return render(request, "slogin.html")
