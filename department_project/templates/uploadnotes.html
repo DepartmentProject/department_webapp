@@ -354,23 +354,7 @@
 }
 
 
-function deleteFile() {
-  const storageRef = firebase.storage().ref();
-  var dept=document.getElementById("book_dept").value;
-  var sem=document.getElementById("book_sem").value;
-  var sub=document.getElementById("book_sub").value;
-  // [START storage_delete_file]
-  // Create a reference to the file to delete
-  var desertRef = storageRef.child('ECE/ece_notes/Sem4/EVS/EVS GE8291.pdf');
 
-  // Delete the file
-  desertRef.delete().then(() => {
-    // File deleted successfully
-  }).catch((error) => {
-    // Uh-oh, an error occurred!
-  });
-  // [END storage_delete_file]
-}
 </script>
 
 </body>

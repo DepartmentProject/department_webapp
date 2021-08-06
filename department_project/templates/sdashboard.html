@@ -11,7 +11,9 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>EEE</title>
+<title>iTech Academia - Student Dashboard</title>
+<link rel="icon" sizes="192x192" href="https://firebasestorage.googleapis.com/v0/b/department-webapp.appspot.com/o/psg_itech_logo.png?alt=media&token=2888de86-4673-4311-858f-bfc61d0a2655">
+
 
 <!-- CSS Files-->
 <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
@@ -100,138 +102,52 @@
 <!-- CONTENT 
 ================================================== -->
 <div class="row">
-    <!-- TABS-->
-	<div class="twelve columns">
-		<h5>TABS</h5>
-		<dl class="tabs">
-			<dd class="active"><a href="#simple1">Upload Achievements</a></dd>
-			<dd><a href="#simple2">Upload Department News</a></dd>
-			<dd><a href="uploadnotes">Upload Notes</a></dd>
-		</dl>
-		<ul class="tabs-content">
-			<li class="active" id="simple1Tab">
-                <h5>Upload Achievements</h5>
-                
-                <div class="row">
-                    <div class="six columns">
-                        <form action='tdashboard' method='POST' enctype="multipart/form-data">
-                            {%csrf_token%}
-                            <fieldset>
-                                <legend>Upload achievements</legend>
-                                
-                                    <div class="six columns">
-                                        <label>Title</label>
-                                        <input type="text" class="smoothborder" id='title' name='title'/>
-                                        <label>Upload Image</label>
-                                        
-
-                                        <input type="file" name="files[]" id="files" ><br><br>
-                                        <input type="hidden" name="url" id="url">
-                                        <button type="button" onclick='uploadimage()' class="readmore">Upload Image</button><br><br>
-
-
-                                        <label>Description</label>
-                                        <textarea rows="4" cols="50" class="smoothborder" name="desc" > </textarea>
-                                        
-
-                                        <label>Date </label>
-                                        <input type="date" class="smoothborder" name='date'/>
-                                        <input type="submit" value ="submit" class="readmore"><br><br>
-                                        
-                                    </div>
-                                
-                                
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="six columns">
-                        
-                            <br>
-                            <div class="panel">
-                                <h5>This is a regular panel.</h5>
-                                <p>
-                                    It has an easy to override visual style, and is appropriately subdued.
-                                </p>
-                            </div>
-                            
-                        
-                    </div>
-                </div>
-                
-                
-			</li>
-            
-			<li id="simple2Tab">
-                <h5>Upload News</h5>
-                
-                <div class="row">
-                    <div class="six columns">
-                        <form action='tdashboard' method='POST' enctype="multipart/form-data">
-                            {%csrf_token%}
-                            <fieldset>
-                                <legend>Upload departmental news</legend>
-                                    <div class="six columns">
-                                        <label>Choose Department</label>
-                                        <select name="ndept" class="smoothborder" id="dept" style="width: 100px;">
-                                            <option value="CSE">CSE</option>
-                                            <option value="ECE">ECE</option>
-                                            <option value="EEE">EEE</option>
-                                        </select>
-                                        <label>Title</label>
-                                        <input type="text" class="smoothborder" name='ntitle'/>
-                                        <label>Date</label>
-                                        <input type="date" class="smoothborder" name='ndate'/>
-                                        <label>Description</label>
-                                        <textarea rows="4" cols="50" class="smoothborder" name="ndesc" > </textarea>
-                                        <input type="submit" value ="submit" class="readmore"><br><br>
-                                        
-                                        
-                                    </div>
-                                
-                                
-                            </fieldset>
-                        </form>
-                    </div>
-                    <div class="six columns">
-                        
-                            <br>
-                            <div class="panel">
-                                <h5>This is a regular panel 2</h5>
-                                <p>
-                                    It has an easy to override visual style, and is appropriately subdued.
-                                </p>
-                            </div>
-                            
-                        
-                    </div>
-                </div>
-            </li>
-			<li id="simple3Tab">
-                <h5>Upload Notes</h5>
-                
-                <div class="row">
-
-                    <div class="six columns">
-                        
-                            <br>
-                            <div class="panel">
-                                <h5>This is a regular panel 3</h5>
-                                <p>
-                                    It has an easy to override visual style, and is appropriately subdued.
-                                </p>
-                            </div>
-                            
-                        
-                    </div>
-                </div>
-              </li>
-		</ul>
+	<div class="twelve columns noleftmargin">
+	    <!-- MAIN CONTENT -->
+		<div class="twelve columns noleftmargin">
+			<div class="circledate">
+				<div class="textcircle">
+					- 04 -<br/>October<br/>2013
+				</div>
+			</div>
+			<h4>The Dower Farm <span class="comments">3 comments</span></h4>
+			<div class="dots blogdots">
+			</div>
+			<p>
+				You may have seen prettier girls than Ellin Delorane, but never one that the heart so quickly went out to. She was too much like her dead mother; had the same look of fragile delicacy, the same sweet face with its pensive sadness, the soft brown eyes and the lovely complexion. Mrs. Delorane had died of decline: people would say to one another, in confidence, they hoped Ellin might escape it. The largest and <b>best farm</b> in the neighbourhood of Timberdale, larger than even that of the Ashtons, was called the Dower Farm.
+			</p>
+			<p>
+				 It belonged to Sir Robert Tenby, and had been occupied for many years by one Roger Brook, a genial, pleasant gentleman of large private means apart from his success in farming. Rich though he was, he did not disdain to see practically after his work himself; was up with the lark and out with his men, as a good farmer ought to be. Out-of-doors he was the keen, active, thorough farmer; indoors he lived as a gentleman. He had four children: three boys and one girl ... <a href="#" class="saymore">Read more</a>
+			</p>
+			<div class="hr">
+			</div>
+			<div class="circledate">
+				<div class="textcircle">
+					- 05 -<br/>August<br/>2013
+				</div>
+			</div>
+			<h4>Ellin Delorane <span class="comments">2 comments</span></h4>
+			<div class="dots blogdots">
+			</div>
+			<p>
+				You may have seen prettier girls than Ellin Delorane, but never one that the heart so quickly went out to. She was too much like her dead mother; had the same look of fragile delicacy, the same sweet face with its pensive sadness, the soft brown eyes and the lovely complexion. Mrs. Delorane had died of decline: people would say to one another, in confidence, they hoped Ellin might escape it. The largest and <b>best farm</b> in the neighbourhood of Timberdale, larger than even that of the Ashtons, was called the Dower Farm.
+			</p>
+			<p>
+				 It belonged to Sir Robert Tenby, and had been occupied for many years by one Roger Brook, a genial, pleasant gentleman of large private means apart from his success in farming. Rich though he was, he did not disdain to see practically after his work himself; was up with the lark and out with his men, as a good farmer ought to be. Out-of-doors he was the keen, active, thorough farmer; indoors he lived as a gentleman. He had four children: three boys and one girl.
+			</p>
+			<p>
+				Lord Tawdry was six feet two in height, though seated, and half a foot wide and he wore an eight-pound black mustache to show that regardless of Verbeena's curiously trained character, there was nothing ambisextrous about himself.
+			</p>
+			<p>
+				His courtesy was so inbred that he kept looking the company over as if he wished they'd all go home and let him go to bed. His sleek head would drop forward sleepily from time to time but always bob up like the balloon it possibly perhaps was maybe ... <a href="#" class="saymore">Read more</a>
+			</p>
+			<br/>
+			
+		</div>
+		<!-- SIDEBAR -->
+		
 	</div>
-	<!-- ACCORDIONS-->
-	
 </div>
-	
-	
 <div class="hr">
 </div>
 

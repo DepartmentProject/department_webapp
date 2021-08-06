@@ -41,10 +41,10 @@ urlpatterns = [
     path('tdashboard', views.tdashboard, name = "tdashboard"),
     path('sdashboard', views.sdashboard, name = "sdashboard"),
     path('uploadnotes', views.uploadnotes, name = "uploadnotes"),
-    path('dele', views.dele, name = "dele"),
     path('cse_news', views.cse_news, name = "cse_news"),
     path('eee_news', views.eee_news, name = "eee_news"),
     path('ece_news', views.ece_news, name = "ece_news"),
+    path('signout', views.signout, name = "signout"),
 
     
 ]

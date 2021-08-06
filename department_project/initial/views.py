@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.contrib.auth import logout
 import pyrebase
 
 from django.core.mail import send_mail, BadHeaderError
@@ -31,6 +31,11 @@ def tdash(request):
 def index(request):
     return render(request, "index.html")
 
+def signout(request):
+    
+    logout(request)
+    return redirect('tlogin')
+
 
 '''
 
@@ -55,10 +60,14 @@ def tlogin(request):
         password =request.POST["tpassword"]
         try:
             userlogin= auth.sign_in_with_email_and_password(username,password)
-            return render(request,'tdashboard.html',{'user':username})
+            user = auth.refresh(userlogin['refreshToken'])    
+            print(user['userId'])
+            #return render(request,'tdashboard.html', {'user':user['userId']})
+            return redirect('tdashboard')
         except:
             print('Invalid Login credentials')
-    return render(request, "login.html")
+    else:
+        return render(request, "login.html")
 
 def slogin(request):
     if request.method=='POST':
@@ -66,7 +75,8 @@ def slogin(request):
         password =request.POST["spassword"]
         try:
             userlogin= auth.sign_in_with_email_and_password(username,password)
-            return render(request,'sdashboard.html',{'user':username})
+            #return render(request,'sdashboard.html',{'user':username})
+            return redirect('sdashboard')
         except:
             print('Invalid Login credentials')
     return render(request, "slogin.html")
@@ -78,21 +88,57 @@ def tdashboard(request):
             title =request.POST["title"]
             date =request.POST["date"]
             file = request.FILES['files[]']
-            image = store.child('Achievements/'+file.name).get_url(None)
+            image = store.child('Achievements/'+title).get_url(None)
             ach = {'title':title, 'desc':desc,'date':date,'image':image}
-            db.child('Achievements').push(ach)
+            db.child('Achievements').child(title).set(ach)
             return redirect('tdashboard')
-        if 'ndesc' in request.POST:
+        elif 'ndesc' in request.POST:
             ndept =request.POST["ndept"]
             ndesc =request.POST["ndesc"]
             ntitle =request.POST["ntitle"]
             ndate =request.POST["ndate"]
             news = {'title':ntitle, 'desc':ndesc,'date':ndate}
-            db.child('News').child(ndept).push(news)
+            db.child('News').child(ndept).child(ntitle).set(news)
             print(news)
-            return redirect('tdashboard')
+            return redirect('/tdashboard#simple2')
+        else:
+            if 'fname' in request.POST:
+                fname =request.POST["fname"]
+                dept =request.POST["dept"]
+                sem =request.POST["sem"]
+                sub =request.POST["sub"]
+                pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
+                print(pdfurl)
+                db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
+                return redirect('/tdashboard#simple3')
+            else:
+                Dept =request.POST["Dept"]
+                Sem =request.POST["Sem"]
+                Sub =request.POST["Sub"]
+                book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
+                print(Dept, Sem, Sub)
+                #return redirect('/tdashboard#simple3')
+                return render(request, "tdashboard.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub, 'A':'active'})
+    else:
+        ach =  db.child('Achievements').get().val()
+        achdic={}
+        for i in ach.keys():
+            achdic[i] = list(ach[i].values())
+        cse_news = db.child('News').child('CSE').get().val()
+        ece_news = db.child('News').child('ECE').get().val()
+        eee_news = db.child('News').child('EEE').get().val()
+        csedic = {}
+        for j in cse_news.keys():
+            csedic[j] = list(cse_news[j].values())
 
-    return render(request,'tdashboard.html')
+        ecedic = {}
+        for j in ece_news.keys():
+            ecedic[j] = list(ece_news[j].values())
+
+        eeedic = {}
+        for j in eee_news.keys():
+            eeedic[j] = list(eee_news[j].values())
+        return render(request,'tdashboard.html',{'achdic':achdic, 'csedic':csedic, 'ecedic':ecedic, 'eeedic':eeedic})
 
 def cse_home(request):
     return render(request, "cse.html")
@@ -312,25 +358,6 @@ def ece_notes(request):
     emf = db.child('ECE').child('Sem4').child('EMF').get().val()
     return render(request, "ece_notes.html",{'key':x, 'sem4prp':prp, 'sem4evs':evs, 'sem4lic':lic, 'sem4ct':ct, 'sem4ec2':ec2, 'sem4emf':emf})
 
-def dele(request):
-    if 'namee' in request.POST:
-        NAME =request.POST["namee"]
-        pic_url = db.child('Achievements').child(NAME).child('imageurl').get().val()
-        db.child('Achievements').child(NAME).child('desc').remove()
-        db.child('Achievements').child(NAME).child('title').remove()
-        db.child('Achievements').child(NAME).child('date').remove()
-        db.child('Achievements').child(NAME).child('image').remove()
-        print(NAME, pic_url)
-        #store.child('Achievements/test1.txt').delete()
-        return redirect('tdashboard')
-    else:
-        DEPT =request.POST["book_dept"]
-        SEM =request.POST["book_sem"]
-        SUB =request.POST["book_sub"]
-        BOOK =request.POST["book_name"]
 
-        print(DEPT,SEM,SUB,BOOK)
-        db.child(DEPT).child(SEM).child(SUB).child(BOOK).remove()
-        return render(request, 'uploadnotes.html',{'msg':'Successfully Deleted'})
 
 

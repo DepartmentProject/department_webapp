@@ -11,7 +11,9 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>EEE</title>
+<title>iTech Academia - Faculty Dashboard</title>
+<link rel="icon" sizes="192x192" href="https://firebasestorage.googleapis.com/v0/b/department-webapp.appspot.com/o/psg_itech_logo.png?alt=media&token=2888de86-4673-4311-858f-bfc61d0a2655">
+
 
 <!-- CSS Files-->
 <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
@@ -87,12 +89,22 @@
 ================================================== -->
 <div id="subheader" class="blogstyle">
 	<div class="row">
-		<div class="eight columns">
+		<div class="six columns">
 			<p class="bread leftalign">
-				 You are here: <a href="index"> Home</a> / <a href="tdash">Faculty Dashboard</a>
+				 You are here: <a href="index"> Home</a> / <a href="tdash">Faculty Dashboard</a> 
 			</p>
+           <!-- <button type="button"><a href="signout" style="color: black;">LOGOUT</a></button>-->
+            
+		</div>
+        <div class="six columns">
+			<p class="bread rightalign" style="text-align: right;">
+                <button type="button"><a href="signout" style="color: black;">LOGOUT</a></button>
+			</p>
+           <!-- <button type="button"><a href="signout" style="color: black;">LOGOUT</a></button>-->
+            
 		</div>
 		
+           
 	</div>
 </div>
 <div class="hr">
@@ -102,14 +114,25 @@
 <div class="row">
     <!-- TABS-->
 	<div class="twelve columns">
-		<h5>TABS</h5>
+		<h5>SECTIONS</h5>
 		<dl class="tabs">
-			<dd class="active"><a href="#simple1">Upload Achievements</a></dd>
-			<dd><a href="#simple2">Upload Department News</a></dd>
-			<dd><a href="uploadnotes">Upload Notes</a></dd>
+            {% if A %}
+            <dd ><a href="#simple1">Achievements Section</a></dd>
+			<dd><a href="#simple2">Department News Section</a></dd>
+			<dd class="active"><a href="#simple3">Notes Section</a></dd>
+            {% else %}
+			<dd class="active"><a href="#simple1">Achievements Section</a></dd>
+			<dd><a href="#simple2">Department News Section</a></dd>
+			<dd><a href="#simple3">Notes Section</a></dd>
+            {% endif %}
 		</dl>
 		<ul class="tabs-content">
+            {% if A %}
+			<li id="simple1Tab">
+
+            {% else %}
 			<li class="active" id="simple1Tab">
+            {% endif %}
                 <h5>Upload Achievements</h5>
                 
                 <div class="row">
@@ -127,8 +150,9 @@
 
                                         <input type="file" name="files[]" id="files" ><br><br>
                                         <input type="hidden" name="url" id="url">
-                                        <button type="button" onclick='uploadimage()' class="readmore">Upload Image</button><br><br>
-
+                                        
+                                        <button type="button" onclick='uploadimage(a=document.getElementById("title").value)' class="readmore">Upload Image</button><br><br>
+                                        
 
                                         <label>Description</label>
                                         <textarea rows="4" cols="50" class="smoothborder" name="desc" > </textarea>
@@ -161,14 +185,16 @@
                             <h5>Delete Achievements</h5>
                             <hr>
                             <ol>
+
                                 {%for i,j in achdic.items%}
-                                <form action="dele" method="POST">
+                                <form action="#" method="POST">
                                     {%csrf_token%}
                                 <li>
                                     
-                                    <input type="hidden" name="namee" id="namee" value={{i}}>
+                                    <input type="hidden" name="namee" id="namee" value={{j.3}}>
 
-                                    {{j.3}}<br>&emsp;&emsp;{{j.1}}<input type="submit" value ="Delete Achievement">   
+                                    {{j.3}}<button type="button" onclick="deleteFileachievement('{{j.3}}')" class="readmore">DELETE</button> <br>
+                                    &emsp;&emsp;{{j.1}} 
                                     
                                 </li> 
                                 </form>  
@@ -193,7 +219,7 @@
                                 <legend>Upload departmental news</legend>
                                     <div class="six columns">
                                         <label>Choose Department</label>
-                                        <select name="ndept" class="smoothborder" id="dept" style="width: 100px;">
+                                        <select name="ndept" class="smoothborder" id="ndept" style="width: 100px;">
                                             <option value="CSE">CSE</option>
                                             <option value="ECE">ECE</option>
                                             <option value="EEE">EEE</option>
@@ -225,13 +251,120 @@
                             
                         
                     </div>
+                    <div class="row">
+                        <div class="twelve columns">
+                            <h5>Delete News</h5>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="four columns">
+                            <h5>CSE</h5>
+                            <p><ol>
+                                {%for i,j in csedic.items%}  
+
+                                 <li><b>{{j.2}}</b> <button type="button" onclick="deletenews('CSE','{{j.2}}')" class="readmore">Delete</button><br>
+                                   &emsp;&emsp; {{j.1}}<br><br>
+                                   
+                                     
+
+                                 </li>
+                                {% endfor %}                       
+                            </ol>  </p>
+                        </div>
+                        <div class="four columns">
+                            <h5>ECE</h5>
+                            <p><ol>
+                                {%for i,j in ecedic.items%}  
+
+                                <li><b>{{j.2}}</b> <button type="button" onclick="deletenews('ECE','{{j.2}}')" class="readmore">Delete</button><br>
+
+                                   &emsp;&emsp; {{j.1}}<br><br>
+                                     
+
+                                 </li>
+                                {% endfor %}                       
+                            </ol>  </p>
+                        </div>
+                        <div class="four columns">
+                            <h5>EEE</h5>
+                            <p><ol>
+                                {%for i,j in eeedic.items%}  
+
+                                <li><b>{{j.2}}</b> <button type="button" onclick="deletenews('EEE','{{j.2}}')" class="readmore">Delete</button><br>
+
+                                   &emsp;&emsp; {{j.1}}<br><br>
+                                     
+
+                                 </li>
+                                {% endfor %}                       
+                            </ol>  </p>
+                        </div>
+                    </div>
+                
                 </div>
             </li>
-			<li id="simple3Tab">
+            {% if A %}
+			<li class="active" id="simple3Tab">
+            {% else %}
+			<li  id="simple3Tab">
+            {% endif %}
                 <h5>Upload Notes</h5>
                 
                 <div class="row">
-
+                    <div class="six columns">
+                        <form enctype="multipart/form-data" method="POST" action="tdashboard">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend>Upload notes</legend>
+                                
+                                    <div class="six columns">
+                                        <label>Filename</label>
+                                        <input type="text" class="smoothborder" name='fname' id='fname'/>
+                                        <label>Choose Department</label>
+                                        <select name="dept" class="smoothborder" id="dept" style="width: 100px;">
+                                            <option value="CSE">CSE</option>
+                                            <option value="ECE">ECE</option>
+                                            <option value="EEE">EEE</option>
+                                    
+                                        </select>
+                                        <br><br>
+                                        <label>Choose Semester</label>
+                                        <select name="sem" class="smoothborder" id="sem" style="width: 100px;">
+                                            <option value="Sem1">Semester 1</option>
+                                            <option value="Sem2">Semester 2</option>
+                                            <option value="Sem3">Semester 3</option>
+                                            <option value="Sem4">Semester 4</option>
+                                            <option value="Sem5">Semester 5</option>
+                                            <option value="Sem6">Semester 6</option>
+                                            <option value="Sem7">Semester 7</option>
+                                            <option value="Sem8">Semester 8</option>
+                                        </select><br>
+                                        <br>
+                                        <label>Choose Subject</label>
+                                        <select class="ui search dropdown" name ="sub" id="sub">
+                                            <option value="">Choose Subject</option>
+                                            <option value="EMF">EMF</option>
+                                            <option value="CT">CT</option>
+                                            <option value="LIC">LIC</option>
+                                            <option value="PRP">PRP</option>
+                                            <option value="EVS">EVS</option>
+                                            <option value="EC2">EC II</option>
+                                          </select>
+                                          <br><br>
+                                        <label>Upload file</label>
+                                        <input type="file" name="pdfs[]" id="pdfs" ><br><br>
+                                        <input type="hidden" name="pdfurl" id="pdfurl">
+                                        <button type="button" onclick='uploadimage(document.getElementById("fname").value)' class="readmore">Upload pdf</button><br><br>
+                                        <input type="submit" value ="submit" class="readmore"><br><br>
+                                        
+                                    </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                
+        
                     <div class="six columns">
                         
                             <br>
@@ -243,6 +376,85 @@
                             </div>
                             
                         
+                    </div>
+                    <div class="twelve columns">
+                        <h5>View Notes</h5>
+
+                        <hr>
+                        <form enctype="multipart/form-data" method="POST" action="tdashboard">
+                            {% csrf_token %}
+                            <fieldset>
+                                <legend>View notes</legend>
+                                
+                                    <div class="six columns">
+                                        
+                                        <label>Choose Department</label>
+                                        <select name="Dept" class="smoothborder" id="Dept" style="width: 100px;">
+                                            <option value="CSE">CSE</option>
+                                            <option value="ECE">ECE</option>
+                                            <option value="EEE">EEE</option>
+                                    
+                                        </select>
+                                        <br><br>
+                                        <label>Choose Semester</label>
+                                        <select name="Sem" class="smoothborder" id="Sem" style="width: 100px;">
+                                            <option value="Sem1">Semester 1</option>
+                                            <option value="Sem2">Semester 2</option>
+                                            <option value="Sem3">Semester 3</option>
+                                            <option value="Sem4">Semester 4</option>
+                                            <option value="Sem5">Semester 5</option>
+                                            <option value="Sem6">Semester 6</option>
+                                            <option value="Sem7">Semester 7</option>
+                                            <option value="Sem8">Semester 8</option>
+                                        </select><br>
+                                        <br>
+                                        <label>Choose Subject</label>
+                                        <select class="ui search dropdown" name ="Sub" id="Sub">
+                                            <option value="">Choose Subject</option>
+                                            <option value="EMF">EMF</option>
+                                            <option value="CT">CT</option>
+                                            <option value="LIC">LIC</option>
+                                            <option value="PRP">PRP</option>
+                                            <option value="EVS">EVS</option>
+                                            <option value="EC2">EC II</option>
+                                          </select>
+                                          <br><br>
+                                        
+                                        <input type="submit" value ="submit" class="readmore"><br><br>
+                                        
+                                    </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="twelve columns">
+                        <h5>Delete Notes</h5>
+                        <hr>
+                        <ol>
+        
+                            {%for j in book %}
+                            <form action="#" method="POST">
+                                {%csrf_token%}
+                            <li>
+                                <input type="hidden" name="book_dept" id="book_dept" value={{DEPT}}>
+                                <input type="hidden" name="book_sem" id="book_sem" value={{SEM}}>
+                                <input type="hidden" name="book_sub" id="book_sub" value={{SUB}}>
+                                <input type="hidden" name="book_name" id="book_name" value={{j}}>
+                                
+        
+                                {{j}}
+                                <button type="button" onclick="deleteFilenotes('{{j}}')" class="readmore">DELETE</button>
+                                
+                            </li> 
+                            </form>  
+                            <br>     
+                            {% endfor %}                 
+                        </ol>
+                     <!--    {% if BB %}<ol>
+                            {% for j in BB %}
+                                <li>{{j}}<br><br></li>
+                            {% endfor %}</ol>
+                        {% endif %}  -->
+                      
                     </div>
                 </div>
               </li>
@@ -316,27 +528,126 @@
   firebase.initializeApp(firebaseConfig);
   var storage = firebase.storage();
   var storageref=storage.ref();
+  var db = firebase.database().ref();
   
-  function uploadimage(){
-    var file=document.getElementById("files").files[0];
-    var thisref=storageref.child('Achievements/'.concat(file.name)).put(file);
-    thisref.on('state_changed',function(snapshot) {
-        console.log('Done');
+  function uploadimage(img){
+    var va=img;
+    if (document.getElementById('title').value){
+            var file=document.getElementById("files").files[0];
+            var thisref=storageref.child('Achievements/'.concat(va)).put(file);
+            thisref.on('state_changed',function(snapshot) {
+                console.log('Done');
+                
         
- 
-  }, function(error) {
-  console.log('Error',error);
- 
-}, function() {
-  thisref.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-    console.log('File available at', downloadURL);
-    document.getElementById("url").value=downloadURL;
-    alert('Uploaded successfully, click submit to continue');
-  });
-});
+        }, function(error) {
+        console.log('Error',error);
+        
+        }, function() {
+        thisref.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+            document.getElementById("url").value=downloadURL;
+            alert('Uploaded successfully, click submit to continue');
+        });
+        });}
+    else if (document.getElementById("fname").value)
+    {
+        
+        var pdf=document.getElementById("pdfs").files[0];
+        var dept=document.getElementById("dept").value;
+        var sem=document.getElementById("sem").value;
+        var sub=document.getElementById("sub").value;
+       
+        var thisref=storageref.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(va)).put(pdf);
+        
+
+        thisref.on('state_changed',function(snapshot) {
+            console.log('Done');
+            
+    
+    }, function(error) {
+    console.log('Error',error);
+    
+    }, function() {
+    thisref.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log('File available at', downloadURL);
+        document.getElementById("pdfurl").value=downloadURL;
+        alert('Uploaded successfully, click submit to continue');
+    });
+    });
+        }
 }
 
+function deleteFileachievement(data) {
+        const storageRef = firebase.storage().ref();
+        var N=data;
+  
+    
+        
+        db.child('Achievements').child(N).remove()
+        
+        // [START storage_delete_file]
+        // Create a reference to the file to delete
+        var desertRef = storageRef.child('Achievements/'.concat(N));
 
+        // Delete the file
+        desertRef.delete().then(() => {
+            
+            document.location.reload();
+        }).catch((error) => {
+            // Uh-oh, an error occurred!
+        });
+        // [END storage_delete_file]
+    }
+    
+    
+        
+
+
+
+function deleteFilenotes(data) {
+        const storageRef = firebase.storage().ref();
+        var N=data;
+  
+        
+        var dept=document.getElementById("book_dept").value;
+        var sem=document.getElementById("book_sem").value;
+        var sub=document.getElementById("book_sub").value;
+        // [START storage_delete_file]
+        // Create a reference to the file to delete
+        db.child(dept).child(sem).child(sub).child(N).remove()
+        var desertRef = storageRef.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(N));
+
+        // Delete the file
+        desertRef.delete().then(() => {
+            alert('SUCCESS');
+            document.location.reload();
+        }).catch((error) => {
+            // Uh-oh, an error occurred!
+        });
+        }
+    
+
+function deletenews(data,heading) {
+
+var N=data;
+
+
+// [START storage_delete_file]
+// Create a reference to the file to delete
+db.child('News').child(N).child(heading).remove()
+document.location.reload();
+
+// Delete the file
+
+}        
+
+function logout(){
+    firebase.auth().signOut().then(function() {
+    alert("Sucessfully Logged out");
+    }, function(error) {
+    alert("Something went wrong");
+    });
+}
   
 </script>
 
