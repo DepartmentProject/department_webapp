@@ -19,6 +19,7 @@ firebaseConfig = {
     'measurementId': "G-5RV1GXRFBD"
   }
 
+userx=''
 
 fb = pyrebase.initialize_app(firebaseConfig)
 db = fb.database()
@@ -34,24 +35,10 @@ def index(request):
 def signout(request):
     
     logout(request)
+    global userx
+    userx=''
     return redirect('tlogin')
 
-
-'''
-
-print('Login')
-    email = input('enter the email   ')
-    password = input('enter the password   ')
-    try:
-        userlogin= auth.sign_in_with_email_and_password(email,password)
-        opt2 = int(input('Do you want credentials? (1/0) '))
-        if opt2==1:
-            print(auth.get_account_info(userlogin['idToken']))
-        
-    
-    
-
-'''
 
 
 def tlogin(request):
@@ -62,6 +49,8 @@ def tlogin(request):
             userlogin= auth.sign_in_with_email_and_password(username,password)
             user = auth.refresh(userlogin['refreshToken'])    
             print(user['userId'])
+            global userx
+            userx=user['userId']
             #return render(request,'tdashboard.html', {'user':user['userId']})
             return redirect('tdashboard')
         except:
@@ -82,6 +71,9 @@ def slogin(request):
     return render(request, "slogin.html")
 
 def tdashboard(request):
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',userx)
+    if len(userx)==0:
+        return redirect('tlogin')
     if request.method=='POST':
         if 'desc' in request.POST:
             desc =request.POST["desc"]
@@ -357,7 +349,3 @@ def ece_notes(request):
     ec2 = db.child('ECE').child('Sem4').child('EC2').get().val()
     emf = db.child('ECE').child('Sem4').child('EMF').get().val()
     return render(request, "ece_notes.html",{'key':x, 'sem4prp':prp, 'sem4evs':evs, 'sem4lic':lic, 'sem4ct':ct, 'sem4ec2':ec2, 'sem4emf':emf})
-
-
-
-
