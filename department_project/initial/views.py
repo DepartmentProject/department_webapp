@@ -19,6 +19,9 @@ firebaseConfig = {
     'measurementId': "G-5RV1GXRFBD"
   }
 
+userx=''
+users=''
+count =0
 
 fb = pyrebase.initialize_app(firebaseConfig)
 db = fb.database()
@@ -29,43 +32,43 @@ def tdash(request):
     return render(request, "tdash.html")
 
 def index(request):
-    return render(request, "index.html")
+    global count
+    count+=1
+    return render(request, "index.html",{'c':count})
 
 def signout(request):
     
     logout(request)
+    global userx
+    userx=''
     return redirect('tlogin')
 
-
-'''
-
-print('Login')
-    email = input('enter the email   ')
-    password = input('enter the password   ')
-    try:
-        userlogin= auth.sign_in_with_email_and_password(email,password)
-        opt2 = int(input('Do you want credentials? (1/0) '))
-        if opt2==1:
-            print(auth.get_account_info(userlogin['idToken']))
-        
+def ssignout(request):
     
-    
+    logout(request)
+    global users
+    users=''
+    return redirect('slogin')
 
-'''
 
 
 def tlogin(request):
     if request.method=='POST':
         username =request.POST["tusername"]
         password =request.POST["tpassword"]
-        try:
-            userlogin= auth.sign_in_with_email_and_password(username,password)
-            user = auth.refresh(userlogin['refreshToken'])    
-            print(user['userId'])
-            #return render(request,'tdashboard.html', {'user':user['userId']})
-            return redirect('tdashboard')
-        except:
-            print('Invalid Login credentials')
+        if password is 'cse?admin:21' or 'ece?admin:21' or 'eee?admin:21':
+            try:
+                userlogin= auth.sign_in_with_email_and_password(username,password)
+                user = auth.refresh(userlogin['refreshToken'])    
+                print(user['userId'])
+                global userx
+                userx=user['userId']
+                #return render(request,'tdashboard.html', {'user':user['userId']})
+                return redirect('tdashboard')
+            except:
+                return render(request,'login.html',{'msg':'Invalid Login credentials'})
+        else:
+            return render(request,'login.html',{'msg':'Invalid Login credentials'})
     else:
         return render(request, "login.html")
 
@@ -76,12 +79,18 @@ def slogin(request):
         try:
             userlogin= auth.sign_in_with_email_and_password(username,password)
             #return render(request,'sdashboard.html',{'user':username})
+            user = auth.refresh(userlogin['refreshToken'])   
+            global users
+            users=user['userId']
             return redirect('sdashboard')
         except:
-            print('Invalid Login credentials')
+            return render(request,'slogin.html',{'msg':'Invalid Login credentials'})
     return render(request, "slogin.html")
 
 def tdashboard(request):
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',userx)
+    if len(userx)==0:
+        return redirect('tlogin')
     if request.method=='POST':
         if 'desc' in request.POST:
             desc =request.POST["desc"]
@@ -145,6 +154,8 @@ def cse_home(request):
 
 
 def sdashboard(request):
+    if len(users)==0:
+        return redirect('slogin')
     return render(request, "sdashboard.html")
 
 def cse_news(request):
@@ -357,7 +368,3 @@ def ece_notes(request):
     ec2 = db.child('ECE').child('Sem4').child('EC2').get().val()
     emf = db.child('ECE').child('Sem4').child('EMF').get().val()
     return render(request, "ece_notes.html",{'key':x, 'sem4prp':prp, 'sem4evs':evs, 'sem4lic':lic, 'sem4ct':ct, 'sem4ec2':ec2, 'sem4emf':emf})
-
-
-
-
