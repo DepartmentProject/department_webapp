@@ -532,11 +532,35 @@
         appId: "1:200792524960:web:ed6771ec8ff2bf9e86e1c5",
         measurementId: "G-5RV1GXRFBD"
       };
-  firebase.initializeApp(firebaseConfig);
-  var storage = firebase.storage();
-  var storageref=storage.ref();
-  var db = firebase.database().ref();
+      var firebaseConfigcse = {
+        
+  };
   
+  
+  var fbeee = firebase.initializeApp({
+    apiKey: "AIzaSyCQZJujBxhb-i5sPubEkG1bkSFNqLYtJZk",
+    authDomain: "department-eee-ca484.firebaseapp.com",
+    databaseURL: "https://department-eee-ca484-default-rtdb.firebaseio.com",
+    projectId: "department-eee-ca484",
+    storageBucket: "department-eee-ca484.appspot.com",
+    messagingSenderId: "396555052186",
+    appId: "1:396555052186:web:328ae5549b048965baeb23",
+    measurementId: "G-M74HL10RPZ"
+}, "fbeee");
+  firebase.initializeApp(firebaseConfig);
+  var storageece = firebase.storage();
+  var storageref=storageece.ref();
+  var db = firebase.database().ref();
+
+ 
+
+
+  
+  var storageeee = fbeee.storage();
+  var storagerefeee=storageeee.ref();
+  var dbeee = fbeee.database().ref();
+  
+
   function uploadimage(img){
     var va=img;
     if (document.getElementById('title').value){
@@ -563,8 +587,18 @@
         var dept=document.getElementById("dept").value;
         var sem=document.getElementById("sem").value;
         var sub=document.getElementById("sub").value;
-       
+       if (dept == "CSE"){
+        var thisref=storagerefcse.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(va)).put(pdf);
+
+       }
+       else if (dept == "EEE"){
+        var thisref=storagerefeee.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(va)).put(pdf);
+
+       }
+       else{
         var thisref=storageref.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(va)).put(pdf);
+
+       }
         
 
         thisref.on('state_changed',function(snapshot) {
@@ -612,7 +646,9 @@ function deleteFileachievement(data) {
 
 
 function deleteFilenotes(data) {
-        const storageRef = firebase.storage().ref();
+        
+        
+
         var N=data;
   
         
@@ -621,9 +657,25 @@ function deleteFilenotes(data) {
         var sub=document.getElementById("book_sub").value;
         // [START storage_delete_file]
         // Create a reference to the file to delete
-        db.child(dept).child(sem).child(sub).child(N).remove()
-        var desertRef = storageRef.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(N));
+        if (dept == "CSE"){
+            dbcse.child(dept).child(sem).child(sub).child(N).remove()
+            var desertRef = storageRefcse.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(N));
 
+        }
+        else if (dept == "EEE"){
+            const storageRefeee = fbeee.storage().ref();
+
+            dbeee.child(dept).child(sem).child(sub).child(N).remove()
+            var desertRef = storageRefeee.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(N));
+
+        }
+        else{
+            const storageRef = fb.storage().ref();
+            db.child(dept).child(sem).child(sub).child(N).remove()
+            var desertRef = storageRef.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(N));
+
+        }
+        
         // Delete the file
         desertRef.delete().then(() => {
             alert('SUCCESS');
@@ -638,10 +690,26 @@ function deletenews(data,heading) {
 
 var N=data;
 
+if (N == 'CSE'){
+    alert("hey");
+    
+    dbcse.child('News').child(N).child(heading).remove()
+
+}
+else if (N == 'EEE'){
+    alert("EEE");
+    
+    dbeee.child('News').child(N).child(heading).remove()
+
+}
+else{
+    dbece.child('News').child(N).child(heading).remove()
+
+}
+
 
 // [START storage_delete_file]
 // Create a reference to the file to delete
-db.child('News').child(N).child(heading).remove()
 document.location.reload();
 
 // Delete the file

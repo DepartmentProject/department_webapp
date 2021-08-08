@@ -19,6 +19,28 @@ firebaseConfig = {
     'measurementId': "G-5RV1GXRFBD"
   }
 
+firebaseConfigcse = {
+    'apiKey': "AIzaSyCr0i2SomflKTamBFmNy08D-haQZs_bclc",
+    'authDomain': "department-cse.firebaseapp.com",
+    'databaseURL': "https://department-cse-default-rtdb.asia-southeast1.firebasedatabase.app",
+    'projectId': "department-cse",
+    'storageBucket': "department-cse.appspot.com",
+    'messagingSenderId': "1026656363985",
+    'appId': "1:1026656363985:web:1091b84f12ec4864d6ecf0",
+    'measurementId': "G-V14D68JMDN"
+  }
+
+firebaseConfigeee = {
+    'apiKey': "AIzaSyCQZJujBxhb-i5sPubEkG1bkSFNqLYtJZk",
+    'authDomain': "department-eee-ca484.firebaseapp.com",
+    'databaseURL': "https://department-eee-ca484-default-rtdb.firebaseio.com",
+    'projectId': "department-eee-ca484",
+    'storageBucket': "department-eee-ca484.appspot.com",
+    'messagingSenderId': "396555052186",
+    'appId': "1:396555052186:web:328ae5549b048965baeb23",
+    'measurementId': "G-M74HL10RPZ"
+  }
+
 userx=''
 users=''
 count =0
@@ -27,6 +49,14 @@ fb = pyrebase.initialize_app(firebaseConfig)
 db = fb.database()
 store = fb.storage()
 auth = fb.auth()
+
+fbcse = pyrebase.initialize_app(firebaseConfigcse)
+dbcse = fbcse.database()
+storecse = fbcse.storage()
+
+fbeee = pyrebase.initialize_app(firebaseConfigeee)
+dbeee = fbeee.database()
+storeeee = fbeee.storage()
 
 def tdash(request):
     return render(request, "tdash.html")
@@ -107,7 +137,12 @@ def tdashboard(request):
             ntitle =request.POST["ntitle"]
             ndate =request.POST["ndate"]
             news = {'title':ntitle, 'desc':ndesc,'date':ndate}
-            db.child('News').child(ndept).child(ntitle).set(news)
+            if ndept == "CSE":
+                dbcse.child('News').child(ndept).child(ntitle).set(news)
+            elif ndept == "EEE":
+                dbeee.child('News').child(ndept).child(ntitle).set(news)
+            else:
+                db.child('News').child(ndept).child(ntitle).set(news)
             print(news)
             return redirect('/tdashboard#simple2')
         else:
@@ -116,15 +151,27 @@ def tdashboard(request):
                 dept =request.POST["dept"]
                 sem =request.POST["sem"]
                 sub =request.POST["sub"]
-                pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
-                print(pdfurl)
-                db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
+                if dept == "CSE":
+                    pdfurl = storecse.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
+                    dbcse.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
+                elif dept == "EEE":
+                    pdfurl = storeeee.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
+                    dbeee.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
+                else:
+                    pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
+                    #print(pdfurl)
+                    db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
                 return redirect('/tdashboard#simple3')
             else:
                 Dept =request.POST["Dept"]
                 Sem =request.POST["Sem"]
                 Sub =request.POST["Sub"]
-                book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
+                if Dept == "CSE":
+                    book = dbcse.child(Dept).child(Sem).child(Sub).get().val().keys()
+                elif Dept == "EEE":
+                    book = dbeee.child(Dept).child(Sem).child(Sub).get().val().keys()
+                else:
+                    book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
                 print(Dept, Sem, Sub)
                 #return redirect('/tdashboard#simple3')
                 return render(request, "tdashboard.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub, 'A':'active'})
@@ -133,9 +180,9 @@ def tdashboard(request):
         achdic={}
         for i in ach.keys():
             achdic[i] = list(ach[i].values())
-        cse_news = db.child('News').child('CSE').get().val()
+        cse_news = dbcse.child('News').child('CSE').get().val()
         ece_news = db.child('News').child('ECE').get().val()
-        eee_news = db.child('News').child('EEE').get().val()
+        eee_news = dbeee.child('News').child('EEE').get().val()
         csedic = {}
         for j in cse_news.keys():
             csedic[j] = list(cse_news[j].values())
@@ -159,7 +206,7 @@ def sdashboard(request):
     return render(request, "sdashboard.html")
 
 def cse_news(request):
-    news =  db.child('News').child('CSE').get().val()
+    news =  dbcse.child('News').child('CSE').get().val()
     newsdic={}
     for i in news.keys():
         newsdic[i] = list(news[i].values())
@@ -175,7 +222,7 @@ def ece_news(request):
 
 
 def eee_news(request):
-    news =  db.child('News').child('EEE').get().val()
+    news =  dbeee.child('News').child('EEE').get().val()
     newsdic={}
     for i in news.keys():
         newsdic[i] = list(news[i].values())
@@ -306,11 +353,11 @@ def achievements(request):
     return render(request, "achievements.html",{'achdic': achdic})
 
 def notes(request):
-    x= db.child('Semester3').get().val()
+    x= dbcse.child("CSE").child('Sem4').child('LIC').get().val()
     return render(request, "notes.html",{'key':x})
 
 def eee_notes(request):
-    x= db.child('Semester3').get().val()
+    x= dbeee.child('EEE').child('Sem4').child('EC2').get().val()
     return render(request, "eee_notes.html",{'key':x})
 
 def contact(request):
