@@ -20,6 +20,8 @@ firebaseConfig = {
   }
 
 userx=''
+users=''
+count =0
 
 fb = pyrebase.initialize_app(firebaseConfig)
 db = fb.database()
@@ -30,7 +32,9 @@ def tdash(request):
     return render(request, "tdash.html")
 
 def index(request):
-    return render(request, "index.html")
+    global count
+    count+=1
+    return render(request, "index.html",{'c':count})
 
 def signout(request):
     
@@ -39,22 +43,32 @@ def signout(request):
     userx=''
     return redirect('tlogin')
 
+def ssignout(request):
+    
+    logout(request)
+    global users
+    users=''
+    return redirect('slogin')
+
 
 
 def tlogin(request):
     if request.method=='POST':
         username =request.POST["tusername"]
         password =request.POST["tpassword"]
-        try:
-            userlogin= auth.sign_in_with_email_and_password(username,password)
-            user = auth.refresh(userlogin['refreshToken'])    
-            print(user['userId'])
-            global userx
-            userx=user['userId']
-            #return render(request,'tdashboard.html', {'user':user['userId']})
-            return redirect('tdashboard')
-        except:
-            print('Invalid Login credentials')
+        if password is 'cse?admin:21' or 'ece?admin:21' or 'eee?admin:21':
+            try:
+                userlogin= auth.sign_in_with_email_and_password(username,password)
+                user = auth.refresh(userlogin['refreshToken'])    
+                print(user['userId'])
+                global userx
+                userx=user['userId']
+                #return render(request,'tdashboard.html', {'user':user['userId']})
+                return redirect('tdashboard')
+            except:
+                return render(request,'login.html',{'msg':'Invalid Login credentials'})
+        else:
+            return render(request,'login.html',{'msg':'Invalid Login credentials'})
     else:
         return render(request, "login.html")
 
@@ -65,9 +79,12 @@ def slogin(request):
         try:
             userlogin= auth.sign_in_with_email_and_password(username,password)
             #return render(request,'sdashboard.html',{'user':username})
+            user = auth.refresh(userlogin['refreshToken'])   
+            global users
+            users=user['userId']
             return redirect('sdashboard')
         except:
-            print('Invalid Login credentials')
+            return render(request,'slogin.html',{'msg':'Invalid Login credentials'})
     return render(request, "slogin.html")
 
 def tdashboard(request):
@@ -137,6 +154,8 @@ def cse_home(request):
 
 
 def sdashboard(request):
+    if len(users)==0:
+        return redirect('slogin')
     return render(request, "sdashboard.html")
 
 def cse_news(request):

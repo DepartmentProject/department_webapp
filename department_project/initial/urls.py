@@ -45,6 +45,5 @@ urlpatterns = [
     path('eee_news', views.eee_news, name = "eee_news"),
     path('ece_news', views.ece_news, name = "ece_news"),
     path('signout', views.signout, name = "signout"),
-
-    
+    path('ssignout', views.ssignout, name = "ssignout"),
 ]
