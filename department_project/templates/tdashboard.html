@@ -532,9 +532,15 @@
         appId: "1:200792524960:web:ed6771ec8ff2bf9e86e1c5",
         measurementId: "G-5RV1GXRFBD"
       };
-      var firebaseConfigcse = {
-        
-  };
+      var fbcse = firebase.initializeApp({
+        apiKey: "AIzaSyBbp0KWKPlb7H7dJ-8je7tyeQydvzUzPYU",
+        authDomain: "department-cse-46e59.firebaseapp.com",
+        databaseURL: "https://department-cse-46e59-default-rtdb.firebaseio.com",
+        projectId: "department-cse-46e59",
+        storageBucket: "department-cse-46e59.appspot.com",
+        messagingSenderId: "130245589247",
+        appId: "1:130245589247:web:1fa1ec90a09a14c43ef4ca"
+    }, "fbcse");
   
   
   var fbeee = firebase.initializeApp({
@@ -552,13 +558,15 @@
   var storageref=storageece.ref();
   var db = firebase.database().ref();
 
- 
-
-
   
   var storageeee = fbeee.storage();
   var storagerefeee=storageeee.ref();
   var dbeee = fbeee.database().ref();
+
+  
+  var storagecse = fbcse.storage();
+  var storagerefcse=storagecse.ref();
+  var dbcse = fbcse.database().ref();
   
 
   function uploadimage(img){
@@ -658,6 +666,7 @@ function deleteFilenotes(data) {
         // [START storage_delete_file]
         // Create a reference to the file to delete
         if (dept == "CSE"){
+            const storageRefcse = fbcse.storage().ref();
             dbcse.child(dept).child(sem).child(sub).child(N).remove()
             var desertRef = storageRefcse.child(dept.concat('/').concat(dept.toLowerCase()).concat('_notes').concat('/').concat(sem).concat('/').concat(sub).concat('/').concat(N));
 
@@ -691,7 +700,7 @@ function deletenews(data,heading) {
 var N=data;
 
 if (N == 'CSE'){
-    alert("hey");
+    alert("CSE");
     
     dbcse.child('News').child(N).child(heading).remove()
 

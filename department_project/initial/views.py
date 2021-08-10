@@ -20,14 +20,13 @@ firebaseConfig = {
   }
 
 firebaseConfigcse = {
-    'apiKey': "AIzaSyCr0i2SomflKTamBFmNy08D-haQZs_bclc",
-    'authDomain': "department-cse.firebaseapp.com",
-    'databaseURL': "https://department-cse-default-rtdb.asia-southeast1.firebasedatabase.app",
-    'projectId': "department-cse",
-    'storageBucket': "department-cse.appspot.com",
-    'messagingSenderId': "1026656363985",
-    'appId': "1:1026656363985:web:1091b84f12ec4864d6ecf0",
-    'measurementId': "G-V14D68JMDN"
+    'apiKey': "AIzaSyBbp0KWKPlb7H7dJ-8je7tyeQydvzUzPYU",
+    'authDomain': "department-cse-46e59.firebaseapp.com",
+    'databaseURL': "https://department-cse-46e59-default-rtdb.firebaseio.com",
+    'projectId': "department-cse-46e59",
+    'storageBucket': "department-cse-46e59.appspot.com",
+    'messagingSenderId': "130245589247",
+    'appId': "1:130245589247:web:1fa1ec90a09a14c43ef4ca"  
   }
 
 firebaseConfigeee = {
@@ -353,7 +352,7 @@ def achievements(request):
     return render(request, "achievements.html",{'achdic': achdic})
 
 def notes(request):
-    x= dbcse.child("CSE").child('Sem4').child('LIC').get().val()
+    x= dbcse.child("CSE").child('Sem4').child('PRP').get().val()
     return render(request, "notes.html",{'key':x})
 
 def eee_notes(request):
