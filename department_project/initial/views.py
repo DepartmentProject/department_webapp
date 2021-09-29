@@ -89,7 +89,7 @@ def tlogin(request):
             try:
                 userlogin= auth.sign_in_with_email_and_password(username,password)
                 user = auth.refresh(userlogin['refreshToken'])    
-                print(user['userId'])
+                #print(user['userId'])
                 global userx
                 userx=user['userId']
                 #return render(request,'tdashboard.html', {'user':user['userId']})
@@ -117,7 +117,7 @@ def slogin(request):
     return render(request, "slogin.html")
 
 def tdashboard(request):
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',userx)
+    #print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',userx)
     if len(userx)==0:
         return redirect('tlogin')
     if request.method=='POST':
@@ -142,7 +142,7 @@ def tdashboard(request):
                 dbeee.child('News').child(ndept).child(ntitle).set(news)
             else:
                 db.child('News').child(ndept).child(ntitle).set(news)
-            print(news)
+           # print(news)
             return redirect('/tdashboard#simple2')
         else:
             if 'fname' in request.POST:
@@ -171,7 +171,7 @@ def tdashboard(request):
                     book = dbeee.child(Dept).child(Sem).child(Sub).get().val().keys()
                 else:
                     book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
-                print(Dept, Sem, Sub)
+                #print(Dept, Sem, Sub)
                 #return redirect('/tdashboard#simple3')
                 return render(request, "tdashboard.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub, 'A':'active'})
     else:
@@ -238,16 +238,16 @@ def reg(request):
         rpassword =request.POST["srpassword"]
 
         try:
-            #if '@psgitech.ac.in' in username and password==rpassword:
-            user = auth.create_user_with_email_and_password(username,password)
-            return redirect("slogin")
-            '''
-            else:
-                return HttpResponse('Login with official mail ID / Retype the correct password')
-            '''
-        except:
-            print('Invalid email or password too short')
+            if  password==rpassword:
+                user = auth.create_user_with_email_and_password(username,password)
+                return redirect("slogin")
     
+            else:
+                return HttpResponse('Retype the correct password')
+            
+        except:
+            #print('Invalid email or password too short')
+            pass
     
     return render(request, "reg.html")
 
@@ -271,7 +271,7 @@ def uploadnotes(request):
             sem =request.POST["sem"]
             sub =request.POST["sub"]
             pdfurl = store.child(dept+'/'+dept.lower()+'_notes'+'/'+sem+'/'+sub+'/'+fname).get_url(None)
-            print(pdfurl)
+            #print(pdfurl)
             db.child(dept).child(sem).child(sub).child(fname).set(pdfurl)
             return redirect('uploadnotes')
         else:
@@ -279,7 +279,7 @@ def uploadnotes(request):
             Sem =request.POST["Sem"]
             Sub =request.POST["Sub"]
             book = db.child(Dept).child(Sem).child(Sub).get().val().keys()
-            print(Dept, Sem, Sub)
+            #print(Dept, Sem, Sub)
             
             return render(request, "uploadnotes.html", {'book':list(book), 'DEPT':Dept, 'SEM':Sem, 'SUB':Sub})
 
@@ -392,18 +392,8 @@ def ece_cgpa(request):
                 x = int(request.POST[i])   
                 sum_res = sum_res + (x*j)
             ans = sum_res/sum(sem_dict[sem1].values())
-            if ans>9:
-                msg = "You are doing great, Keep it up"
-                return render(request, "ece_cgpa.html", {'semm':list(sem_dict[sem1].keys()), 'sem_no':sem1, 'ans':ans, 'msg':msg})
-            elif ans>8:
-                msg = "Keep it up"
-                return render(request, "ece_cgpa.html", {'semm':list(sem_dict[sem1].keys()), 'sem_no':sem1, 'ans':ans, 'msg':msg})
-            elif ans>7:
-                msg = "Not bad , Keep Trying"
-                return render(request, "ece_cgpa.html", {'semm':list(sem_dict[sem1].keys()), 'sem_no':sem1, 'ans':ans, 'msg':msg})
-            else:
-                msg = "Work hard"
-                return render(request, "ece_cgpa.html", {'semm':list(sem_dict[sem1].keys()), 'sem_no':sem1, 'ans':ans, 'msg':msg})
+            
+            return render(request, "ece_cgpa.html", {'semm':list(sem_dict[sem1].keys()), 'sem_no':sem1, 'ans':ans})
     else:
         return render(request, "ece_cgpa.html", {'semm':list(sem_dict[1].keys()), 'sem_no':1})
 
