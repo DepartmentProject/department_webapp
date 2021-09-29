@@ -11,10 +11,8 @@
 <meta charset="utf-8"/>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width"/>
-<title>iTech Academia - Student Dashboard</title>
-<link rel="icon" sizes="192x192" href="https://firebasestorage.googleapis.com/v0/b/department-webapp.appspot.com/o/psg_itech_logo.png?alt=media&token=2888de86-4673-4311-858f-bfc61d0a2655">
-
-
+<link rel="icon" sizes="192x192" href="https://firebasestorage.googleapis.com/v0/b/department-general.appspot.com/o/iTech%20academia.png?alt=media&token=37847fbc-75df-4143-a355-d713c5fd4335">
+<title>iTech Academia</title>
 <!-- CSS Files-->
 <link rel="stylesheet" href="{% static 'stylesheets/style.css' %}">
 
@@ -25,32 +23,44 @@
 <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-   
-
 </head>
 <body>
-<!-- HIDDEN PANEL 
+    <!-- HIDDEN PANEL 
 ================================================== -->
 <div id="panel">
 	<div class="row">
-		<div class="twelve columns">
-			<img src="http://www.wowthemes.net/demo/studiofrancesca/images/info.png" class="pics" alt="info">
-			<div class="infotext">
-				 Thank you for visiting my theme! Replace this with your message to visitors.
-			</div>
+		<div class="eight columns">
+
+			<p style="font-size: 17px;">Fun Fact: This website in other languages is fun to access, Do you want to try?</p>
+			
+		</div>
+		<div class="four columns">
+			<div id="google_translate_element"></div>
+		
+			
 		</div>
 	</div>
 </div>
 <p class="slide">
 	<a href="#" class="btn-slide"></a>
 </p>
+
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <!-- HEADER
 ================================================== -->
 <div class="row">
 	<div class="headerlogo four columns">
 		<div class="logo">
+			
 			<a href="index">
-			<h4>iTech Academia</h4>
+				<h4><img src="https://firebasestorage.googleapis.com/v0/b/department-general.appspot.com/o/iTech%20academia.png?alt=media&token=e811a2c0-6f34-4280-8900-f8e7165e26d4" width="60" height="60" style="vertical-align: middle;"> iTech Academia</h4>
 			</a>
 		</div>
 	</div>
@@ -61,29 +71,30 @@
 			<a href="index">Home</a>
 			</li>
 			<li>
-			<a href="achievements">Achievements</a>
+			<a href="achievements">Updates</a>
 			
 			</li>
 			<li>
 			<a href="#">Login</a>
 			<ul>
-				<li><a href="#">Faculty Login</a></li>
-				<li><a href="#">Student Login</a></li>
+				<li><a href="tdashboard">Faculty Login</a></li>
+				<li><a href="slogin">Student Login</a></li>
 			</ul>
 			</li>
 			<li>
-			<a href="#">Help</a>
+				<a href="https://firebasestorage.googleapis.com/v0/b/department-general.appspot.com/o/iTech_Academia_help.jpg?alt=media&token=d6f50c0f-5baa-44ec-9bf4-58ec43e9ec53" target="__blank">Help</a>
 			
 			</li>
 			
 			<li>
 			<a href="contact">Contact</a>
 			</li>
+			<li>
+				
+			</li>
 		</ul>
 		</nav>
 	</div>
-</div>
-<div class="clear">
 </div>
 <!-- SUBHEADER
 ================================================== -->
